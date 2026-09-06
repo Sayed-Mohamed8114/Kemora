@@ -108,13 +108,8 @@ export default function NavBar() {
             w-10
             items-center
             justify-center
-            rounded-full
             cursor-pointer
-            bg-white/10
-            dark:bg-white/5
             text-black
-            dark:text-white
-            backdrop-blur-md
             transition-all
             duration-500
             hover:scale-105
