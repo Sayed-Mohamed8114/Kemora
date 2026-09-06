@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  /* LIGHT MODE */
+  --color-light-bg: #f7f1e5;
+  --color-light-surface: #fffaf0;
+  --color-light-card: #eee5d3;
+
+  --color-light-text: #202020;
+  --color-light-muted: #6f6a60;
+  --color-light-border: #d8cdbb;
+
+  /* DARK MODE */
+
+  --color-dark-bg: #0d1112;
+  --color-dark-surface: #151b1c;
+  --color-dark-card: #1b2324;
+
+  --color-dark-text: #f4efe3;
+  --color-dark-muted: #a7a39a;
+  --color-dark-border: #303839;
+
+  /* EGYPTIAN GOLD */
+
+  --color-gold: #c89b3c;
+  --color-gold-light: #d9b45a;
+  --color-gold-dark: #9e7628;
+
+  /* NILE */
+
+  --color-nile: #1f3a3d;
+  --color-nile-light: #2f6668;
+  --color-nile-dark: #14282a;
+
+  /* DESERT / SAND */
+
+  --color-sand: #c9a66b;
+  --color-sand-light: #dfc38f;
+  --color-sand-dark: #8b5e34;
+
+  /* STATUS COLORS */
+
+  --color-success: #4f8a68;
+  --color-warning: #c28b35;
+  --color-danger: #b85c50;
+}
