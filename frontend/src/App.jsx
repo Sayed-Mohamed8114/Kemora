@@ -1,9 +1,10 @@
 import { Toaster } from "sonner";
 import AppRouter from "./Routes/AppRouter";
+import Loader from "./Components/Common/Loader";
 
 function App() {
   return (
-    <>
+    <Loader>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -17,7 +18,7 @@ function App() {
         }}
       />
       <AppRouter />
-    </>
+    </Loader>
   );
 }
 
