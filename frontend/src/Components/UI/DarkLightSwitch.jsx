@@ -1,53 +1,41 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { flushSync } from "react-dom";
 
 const DarkLightSwitch = () => {
   const [dark, setDark] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
+
     if (savedTheme) {
       return savedTheme === "dark";
     }
+
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
-  const toggleTheme = (event) => {
-    const newTheme = !dark;
-    if (!document.startViewTransition) {
-      setDark(newTheme);
-      return;
-    }
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-
-    //animation to store the place we start the animations
-    document.documentElement.style.setProperty("--theme-x", `${x}px`);
-    document.documentElement.style.setProperty("--theme-y", `${y}px`);
-    document.startViewTransition(() => {
-      flushSync(() => {
-        setDark(newTheme);
-      });
-    });
+  const toggleTheme = () => {
+    setDark((prev) => !prev);
   };
+
   return (
     <StyledWrapper>
       <label className="switch">
         <input
-          defaultChecked="true"
           id="checkbox"
           checked={!dark}
           onChange={toggleTheme}
           type="checkbox"
         />
+
         <span className="slider">
           <div className="star star_1" />
           <div className="star star_2" />
           <div className="star star_3" />
+
           <svg viewBox="0 0 16 16" className="cloud_1 cloud">
             <path
               transform="matrix(.77976 0 0 .78395-299.99-418.63)"
@@ -62,8 +50,6 @@ const DarkLightSwitch = () => {
 };
 
 const StyledWrapper = styled.div`
-  /* Theme Switch */
-  /* The switch - the box around the slider */
   .switch {
     font-size: 17px;
     position: relative;
@@ -74,14 +60,12 @@ const StyledWrapper = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  /* Hide default HTML checkbox */
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
 
-  /* The slider */
   .slider {
     position: absolute;
     cursor: pointer;
@@ -90,7 +74,7 @@ const StyledWrapper = styled.div`
     right: 0;
     bottom: 0;
     background-color: #2a2a2a;
-    transition: 0.4s;
+    transition: background-color 0.25s ease;
     border-radius: 30px;
     overflow: hidden;
   }
@@ -103,7 +87,9 @@ const StyledWrapper = styled.div`
     border-radius: 20px;
     left: 0.5em;
     bottom: 0.5em;
-    transition: 0.4s;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
     transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
     box-shadow: inset 8px -4px 0px 0px #fff;
   }
@@ -122,8 +108,8 @@ const StyledWrapper = styled.div`
     border-radius: 50%;
     position: absolute;
     width: 5px;
-    transition: all 0.4s;
     height: 5px;
+    transition: opacity 0.2s ease;
   }
 
   .star_1 {
@@ -151,7 +137,7 @@ const StyledWrapper = styled.div`
     bottom: -1.4em;
     left: -1.1em;
     opacity: 0;
-    transition: all 0.4s;
+    transition: opacity 0.25s ease;
   }
 
   .switch input:checked ~ .slider .cloud {

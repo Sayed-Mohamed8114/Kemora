@@ -3,7 +3,6 @@ import { Pyramids, nightPyramid } from "@/assets/egyImages";
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden">
-
       <img
         src={Pyramids}
         alt="The Pyramids of Egypt"
@@ -111,7 +110,6 @@ export default function Hero() {
           </span>
         </h1>
 
-
         <p
           className="
             mt-8
@@ -125,10 +123,9 @@ export default function Hero() {
             animate-[fadeUp_1s_ease-out_0.3s_both]
           "
         >
-          Explore the timeless stories, ancient wonders, and
-          unforgettable beauty of Egypt through a modern experience.
+          Explore the timeless stories, ancient wonders, and unforgettable
+          beauty of Egypt through a modern experience.
         </p>
-
 
         <div
           className="
@@ -163,12 +160,10 @@ export default function Hero() {
               font-cinzel
             "
           >
-              Explore Egypt
-
+            Explore Egypt
           </button>
         </div>
       </div>
-
 
       <div
         className="
@@ -219,9 +214,6 @@ export default function Hero() {
           />
         </div>
       </div>
-
-
-
       <div
         className="
           absolute
@@ -235,11 +227,6 @@ export default function Hero() {
           to-transparent
         "
       />
-
     </section>
   );
 }
-
-
-
-
