@@ -1,4 +1,7 @@
+import About from "@/Components/Home/About";
+import Destinations from "@/Components/Home/Destination";
 import Explore from "@/Components/Home/Explore";
+import Guides from "@/Components/Home/Guides";
 import Hero from "@/Components/Home/Hero";
 import Tours from "@/Components/Home/Tours";
 
@@ -8,6 +11,9 @@ export default function Home() {
       <Hero />
       <Explore />
       <Tours />
+      <Guides />
+      <Destinations />
+      <About />
     </div>
   );
 }

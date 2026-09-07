@@ -210,7 +210,7 @@ const InfiniteSpiral = ({
         dragMovedRef.current = false;
       }}>
       <div
-        className="absolute inset-0 [transform-style:preserve-3d]"
+        className="absolute inset-0 transform-3d"
         role="list"
         aria-label="Infinite spiral gallery">
         {normalizedItems.map((item, index) => {

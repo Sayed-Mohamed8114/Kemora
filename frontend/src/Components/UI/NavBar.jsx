@@ -7,7 +7,8 @@ export default function NavBar() {
 
   const liStyle = `
     font-manrope
-    text-lg
+    text-sm 
+    lg:text-lg
     font-bold
     text-gold-dark
     dark:text-gold-dark
@@ -50,14 +51,11 @@ export default function NavBar() {
             font-cinzel
             font-extrabold
             text-5xl
-
             bg-linear-to-r
             from-gold-dark
             to-gold
-
             bg-clip-text
             text-transparent
-
             dark:from-gold
             dark:to-gold-light
           "
@@ -70,27 +68,23 @@ export default function NavBar() {
         <div className="hidden md:flex items-center justify-center gap-5">
           <ul className="flex items-center justify-center gap-3">
             <li className={liStyle}>
-              <Link to="/explore">Explore</Link>
+              <a href="#explore">Explore</a>
             </li>
 
             <li className={liStyle}>
-              <Link to="/tours">Tours</Link>
+              <a href="#tours">Tours</a>
             </li>
 
             <li className={liStyle}>
-              <Link to="/guides">Guides</Link>
+              <a href="#guides">Guides</a>
             </li>
 
             <li className={liStyle}>
-              <Link to="/cars">Cars</Link>
+              <a href="#destinations">Destinations</a>
             </li>
 
             <li className={liStyle}>
-              <Link to="/destinations">Destinations</Link>
-            </li>
-
-            <li className={liStyle}>
-              <Link to="/about">About</Link>
+              <a href="#about">About</a>
             </li>
           </ul>
 
@@ -147,7 +141,7 @@ export default function NavBar() {
           md:hidden
           transform-gpu
           transition-all
-          duration-1000
+          duration-700
           ease-[cubic-bezier(0.16,1,0.3,1)]
 
           ${
@@ -170,132 +164,100 @@ export default function NavBar() {
         `}
       >
         <div className="flex w-full flex-col gap-5">
-          <Link
-            to="/explore"
+
+          <a
+            href="#explore"
             onClick={() => setIsOpen(false)}
             className="
               font-manrope
               text-lg
               font-bold
-
               text-gold-dark
               dark:text-gold-light
-
               transition-all
               duration-500
-
               hover:translate-x-2
             "
           >
             Explore
-          </Link>
+          </a>
 
-          <Link
-            to="/tours"
+          <a
+            href="#tours"
             onClick={() => setIsOpen(false)}
             className="
               font-manrope
               text-lg
               font-bold
-
               text-gold-dark
               dark:text-gold-light
-
               transition-all
               duration-500
-
               hover:translate-x-2
             "
           >
             Tours
-          </Link>
+          </a>
 
-          <Link
-            to="/guides"
+          <a
+            href="#guides"
             onClick={() => setIsOpen(false)}
             className="
               font-manrope
               text-lg
               font-bold
-
               text-gold-dark
               dark:text-gold-light
-
               transition-all
               duration-500
-
               hover:translate-x-2
             "
           >
             Guides
-          </Link>
+          </a>
 
-          <Link
-            to="/cars"
+          <a
+            href="#destinations"
             onClick={() => setIsOpen(false)}
             className="
               font-manrope
               text-lg
               font-bold
-
               text-gold-dark
               dark:text-gold-light
-
               transition-all
               duration-500
-
-              hover:translate-x-2
-            "
-          >
-            Cars
-          </Link>
-
-          <Link
-            to="/destinations"
-            onClick={() => setIsOpen(false)}
-            className="
-              font-manrope
-              text-lg
-              font-bold
-
-              text-gold-dark
-              dark:text-gold-light
-
-              transition-all
-              duration-500
-
               hover:translate-x-2
             "
           >
             Destinations
-          </Link>
+          </a>
 
-          <Link
-            to="/about"
+          {/* About */}
+          <a
+            href="#about"
             onClick={() => setIsOpen(false)}
             className="
               font-manrope
               text-lg
               font-bold
-
               text-gold-dark
               dark:text-gold-light
-
               transition-all
               duration-500
-
               hover:translate-x-2
             "
           >
             About
-          </Link>
+          </a>
 
           <div
             className="
               flex
               items-center
               justify-end
-              pt-3"
+              pt-3
+            "
           >
             <DarkLightSwitch />
           </div>

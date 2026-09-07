@@ -11,6 +11,10 @@
 body {
   font-family: var(--font-manrope);
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
 
 @theme {
   /* light mode */

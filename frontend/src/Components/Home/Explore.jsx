@@ -3,13 +3,13 @@ import InfiniteSpiral from "../UI/InfiniteSpiral";
 
 export default function Explore() {
   return (
-    <section className="flex flex-col items-center justify-center p-5 mt-10 w-full ">
-      <h2 className="font-cinzel text-gold-dark dark:text-gold-light font-extrabold text-6xl">
+    <section className="flex flex-col items-center justify-center p-5 mt-10 w-full" id="explore">
+      <h2 className="font-cinzel text-gold-dark dark:text-gold-light font-extrabold text-4xl lg:text-6xl">
         Explore Egypt, your way
       </h2>
-      <div className="w-full px-5 items-center gap-5 justify-center flex mt-10 h-auto">
+      <div className="w-full px-5 items-center gap-5 justify-center flex mt-10 h-auto flex-col-reverse lg:flex-row">
         <div className="flex flex-col items-start justify-start w-full h-auto min-h-[50vh] gap-2">
-          <h2 className="text-start justify-start items-start text-5xl font-serif px-5  font-extrabold text-dark-border dark:text-light-border ">
+          <h2 className="text-start justify-start items-start text-3xl lg:text-5xl font-serif px-5 font-extrabold text-dark-border dark:text-light-border ">
             Discover a country where every destination <br />
             <span className="text-dark-bg/50 dark:text-light-border/50">
               tells a different story.
