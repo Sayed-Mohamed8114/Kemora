@@ -6,25 +6,29 @@ import {
   mosque,
   pyramids,
   sphinx,
-} from "@/assets/egyImages";
+  redsea
+} from "@/assets/egyImages/index";
 export const Images = [
   {
-    src: { aswan },
+    src: aswan,
     alt: "aswan pic",
   },
   {
-    src: { camel },
+    src: camel,
     alt: "camel pic",
   },
   {
-    src: { luxor },
+    src: luxor,
     alt: "luxor pic",
   },
   {
-    src: { market },
+    src: market,
     alt: "market pic",
   },
-  { src: { mosque }, alt: "mosque pic" },
-  { src: { pyramids }, alt: "pyramids pic" },
-  { src: { sphinx }, alt: "phinx pic" },
+  { src: mosque, alt: "mosque pic" },
+  { src: pyramids, alt: "pyramids pic" },
+  { src: sphinx, alt: "phinx pic" },
+    { src: redsea, alt: "redsea pic" },
+
+
 ];

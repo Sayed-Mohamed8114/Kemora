@@ -6,6 +6,8 @@ import mosque from "./mosque.jpg";
 import camel from "./camel.jpg";
 import sphinx from "./sphinx.jpg";
 import pyramids from "./pyramids.jpg";
+import market from "./market.jpg";
+import redsea from "./redsea.webp"
 
 export {
   Pyramids,
@@ -16,4 +18,6 @@ export {
   camel,
   sphinx,
   pyramids,
+  market,
+  redsea
 };
