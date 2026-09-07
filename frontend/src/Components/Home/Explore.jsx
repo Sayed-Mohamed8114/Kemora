@@ -120,18 +120,18 @@ export default function Explore() {
             className="w-full h-full px-2 dark:opacity-80"
             items={Images}
             animationMode="auto"
-            speed={0.5}
-            radius={170}
+            speed={0.7}
+            radius={180}
             cardWidth={180}
             cardHeight={150}
             verticalSpacing={60}
             perspective={1000}
-            cardRadius={10}
+            cardRadius={20}
             centerScale={1.5}
             cardsPerTurn={8}
             direction="up"
             rotation={-60}
-            cardTilt={0}
+            cardTilt={4}
             edgeFade={0.3}
             imageFit="cover"
           />

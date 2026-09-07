@@ -9,7 +9,7 @@ const smoothstep = (min, max, value) => {
 
 const InfiniteSpiral = ({
   items = [],
-  speed = 0.55,
+  speed = 0.7,
   direction = 'up',
   animationMode = 'auto',
   radius = 170,
@@ -24,7 +24,7 @@ const InfiniteSpiral = ({
   centerScale = 1.2,
   edgeFade = 0.3,
   edgeBlur = 6,
-  pauseOnHover = true,
+  pauseOnHover = false,
   imageFit = 'cover',
   grayscale = 0,
   className = ''
