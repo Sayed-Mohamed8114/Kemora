@@ -1,24 +1,30 @@
 import { Toaster } from "sonner";
 import AppRouter from "./Routes/AppRouter";
 import Loader from "./Components/Common/Loader";
+import ScrollToHash from "./Components/Common/ScrollToHash";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <Loader>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          classNames: {
-            toast: "bg-dark-surface border border-dark-border text-dark-text",
-            title: "text-dark-text font-semibold",
-            description: "text-dark-muted",
-            success: "border-green-500/50 bg-dark-surface text-green-400",
-            error: "border-red-500/50 bg-dark-surface text-red-400",
-          },
-        }}
-      />
-      <AppRouter />
-    </Loader>
+    <BrowserRouter>
+      <Loader>
+        <ScrollToHash />
+
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            classNames: {
+              toast: "bg-dark-surface! border-dark-border! text-dark-text!",
+              title: "text-dark-text!",
+              description: "text-dark-muted!",
+              success: "bg-dark-surface! border-green-500! text-green-400!",
+              error: "bg-dark-surface! border-red-500! text-red-400!",
+            },
+          }}
+        />
+        <AppRouter />
+      </Loader>
+    </BrowserRouter>
   );
 }
 

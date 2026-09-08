@@ -1,13 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import DarkLightSwitch from "./DarkLightSwitch";
 import { useState } from "react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    {
+      name: "Explore",
+      id: "explore",
+    },
+    {
+      name: "Tours",
+      id: "tours",
+    },
+    {
+      name: "Guides",
+      id: "guides",
+    },
+    {
+      name: "Destinations",
+      id: "destinations",
+    },
+    {
+      name: "About",
+      id: "about",
+    },
+  ];
 
   const liStyle = `
     font-manrope
-    text-sm 
+    text-sm
     lg:text-lg
     font-bold
     text-gold-dark
@@ -16,6 +40,16 @@ export default function NavBar() {
     duration-300
     hover:-translate-y-0.5
   `;
+
+  // Generate the correct link depending on the current page
+  const getSectionLink = (id) => {
+    return location.pathname === "/" ? `#${id}` : `/#${id}`;
+  };
+
+  // Close mobile menu
+  const handleMobileClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <header
@@ -60,31 +94,27 @@ export default function NavBar() {
             dark:to-gold-light
           "
         >
-          <Link to="/" className="flex items-center justify-center">
+          <Link
+            to="/"
+            onClick={handleMobileClick}
+            className="flex items-center justify-center"
+          >
             Kemora
           </Link>
         </h1>
 
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center justify-center gap-5">
           <ul className="flex items-center justify-center gap-3">
-            <li className={liStyle}>
-              <a href="#explore">Explore</a>
-            </li>
+            {navItems.map((item) => (
+              <li key={item.id} className={liStyle}>
+                <Link to={getSectionLink(item.id)}>{item.name}</Link>
+              </li>
+            ))}
 
+            {/* Contact */}
             <li className={liStyle}>
-              <a href="#tours">Tours</a>
-            </li>
-
-            <li className={liStyle}>
-              <a href="#guides">Guides</a>
-            </li>
-
-            <li className={liStyle}>
-              <a href="#destinations">Destinations</a>
-            </li>
-
-            <li className={liStyle}>
-              <a href="#about">About</a>
+              <Link to="/contact">Contact Us</Link>
             </li>
           </ul>
 
@@ -123,6 +153,7 @@ export default function NavBar() {
         </button>
       </nav>
 
+      {/* Mobile Navigation */}
       <div
         className={`
           absolute
@@ -164,10 +195,30 @@ export default function NavBar() {
         `}
       >
         <div className="flex w-full flex-col gap-5">
+          {navItems.map((item) => (
+            <Link
+              key={item.id}
+              to={getSectionLink(item.id)}
+              onClick={handleMobileClick}
+              className="
+                font-manrope
+                text-lg
+                font-bold
+                text-gold-dark
+                dark:text-gold-light
+                transition-all
+                duration-500
+                hover:translate-x-2
+              "
+            >
+              {item.name}
+            </Link>
+          ))}
 
-          <a
-            href="#explore"
-            onClick={() => setIsOpen(false)}
+          {/* Contact */}
+          <Link
+            to="/contact"
+            onClick={handleMobileClick}
             className="
               font-manrope
               text-lg
@@ -179,78 +230,10 @@ export default function NavBar() {
               hover:translate-x-2
             "
           >
-            Explore
-          </a>
+            Contact Us
+          </Link>
 
-          <a
-            href="#tours"
-            onClick={() => setIsOpen(false)}
-            className="
-              font-manrope
-              text-lg
-              font-bold
-              text-gold-dark
-              dark:text-gold-light
-              transition-all
-              duration-500
-              hover:translate-x-2
-            "
-          >
-            Tours
-          </a>
-
-          <a
-            href="#guides"
-            onClick={() => setIsOpen(false)}
-            className="
-              font-manrope
-              text-lg
-              font-bold
-              text-gold-dark
-              dark:text-gold-light
-              transition-all
-              duration-500
-              hover:translate-x-2
-            "
-          >
-            Guides
-          </a>
-
-          <a
-            href="#destinations"
-            onClick={() => setIsOpen(false)}
-            className="
-              font-manrope
-              text-lg
-              font-bold
-              text-gold-dark
-              dark:text-gold-light
-              transition-all
-              duration-500
-              hover:translate-x-2
-            "
-          >
-            Destinations
-          </a>
-
-          {/* About */}
-          <a
-            href="#about"
-            onClick={() => setIsOpen(false)}
-            className="
-              font-manrope
-              text-lg
-              font-bold
-              text-gold-dark
-              dark:text-gold-light
-              transition-all
-              duration-500
-              hover:translate-x-2
-            "
-          >
-            About
-          </a>
-
+          {/* Theme Switch */}
           <div
             className="
               flex

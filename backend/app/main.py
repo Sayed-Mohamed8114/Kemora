@@ -2,8 +2,23 @@ from fastapi import FastAPI ,HTTPException ,Request
 from app.routers.contact import router as contact_router
 from fastapi.responses import JSONResponse 
 from fastapi.exceptions import RequestValidationError 
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://kemora-tau.vercel.app",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(

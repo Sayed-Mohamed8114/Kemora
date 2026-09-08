@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer className="w-full mt-20 border-t border-black/10 dark:border-gold-light/15">
@@ -142,6 +144,13 @@ export default function Footer() {
 
             {/* Socials */}
             <div className="flex items-center gap-5 mt-7">
+              <Link
+                className="font-manrope text-sm underline underline-offset-5 text-dark-border/60 dark:text-light-border/60 hover:text-gold-dark dark:hover:text-gold-light transition-colors"
+                to={"/contact"}
+              >
+                Contact Us
+              </Link>
+
               <a
                 href="#"
                 aria-label="Instagram"
