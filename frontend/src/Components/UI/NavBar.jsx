@@ -164,7 +164,7 @@ export default function NavBar() {
           border
           border-gold-dark/20
           dark:border-gold-light/20
-          bg-white/90
+          bg-white/95
           dark:bg-black/90
           p-5
           shadow-xl

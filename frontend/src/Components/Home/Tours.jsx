@@ -20,7 +20,7 @@ export default function Tours() {
       </h2>
       <div className="md:grid md:grid-cols-3  lg:flex items-center justify-center gap-5 mt-10 flex-col lg:flex-row">
         {tours.map((tour) => (
-          <TourCard tours={tour} />
+          <TourCard key={tour.title} tours={tour} />
         ))}
       </div>
     </section>
