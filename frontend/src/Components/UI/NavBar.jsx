@@ -84,7 +84,8 @@ export default function NavBar() {
           className="
             font-cinzel
             font-extrabold
-            text-5xl
+            text-4xl
+            lg:text-5xl
             bg-linear-to-r
             from-gold-dark
             to-gold
@@ -104,7 +105,7 @@ export default function NavBar() {
         </h1>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-center gap-5">
+        <div className="hidden md:flex items-center justify-center gap-3">
           <ul className="flex items-center justify-center gap-3">
             {navItems.map((item) => (
               <li key={item.id} className={liStyle}>

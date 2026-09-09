@@ -19,7 +19,7 @@ def create_inquiry(
     )
 
     return {
-        "message": "Your inquiry has been submitted successfully",
+        "message": "Your feedback has been submitted successfully",
         "data": {
             "id": new_inquiry.id,
             "name": new_inquiry.name,
