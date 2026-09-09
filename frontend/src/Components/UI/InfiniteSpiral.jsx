@@ -23,7 +23,6 @@ const InfiniteSpiral = ({
   cardRadius = 10,
   centerScale = 1.2,
   edgeFade = 0.3,
-  edgeBlur = 6,
   pauseOnHover = false,
   imageFit = 'cover',
   grayscale = 0,
@@ -119,10 +118,8 @@ const InfiniteSpiral = ({
         const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.72, 1.45);
         const visualScale = scale * depthScale;
         const depth = (z / Math.max(responsiveRadius, 1) + 1) / 2;
-        const blur = edgeBlur * smoothstep(0.35, 1, edge);
         card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
         card.style.opacity = opacity.toFixed(3);
-        card.style.filter = blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : 'none';
         card.style.zIndex = String(Math.round(depth * 100000) + index);
         card.style.pointerEvents = opacity > 0.25 ? 'auto' : 'none';
       });
@@ -151,7 +148,6 @@ const InfiniteSpiral = ({
     cardTilt,
     centerScale,
     edgeFade,
-    edgeBlur,
     pauseOnHover
   ]);
 
