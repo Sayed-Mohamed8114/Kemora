@@ -1,4 +1,4 @@
-from fastapi import APIRouter , Depends , HTTPException , status 
+from fastapi import APIRouter , Depends , status 
 from app.database.db import get_db 
 from app.schemas.contactInquires import ContactInquiryCreate,ContactInquiryCreateResponse
 from app.services.contact import create_contact_inquires
