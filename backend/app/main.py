@@ -3,6 +3,7 @@ from app.routers.contact import router as contact_router
 from fastapi.responses import JSONResponse 
 from fastapi.exceptions import RequestValidationError 
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers.user import router as auth_router
 
 app = FastAPI()
 
@@ -58,3 +59,4 @@ async def global_exception_handler(request:Request , exc:Exception):
     )
 
 app.include_router(contact_router)
+app.include_router(auth_router)
