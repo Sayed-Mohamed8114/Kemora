@@ -58,18 +58,16 @@ export default function NavBar() {
         top-0
         left-1/2
         -translate-x-1/2
-        mt-5
         z-50
-        w-[95%]
-        md:w-[90%]
+        w-full
         min-h-[8vh]
         px-5
         py-3
         flex
         items-center
         justify-center
-        rounded-md
-        bg-gray-100
+        rounded-b-lg
+      bg-gray-100
         dark:bg-gray-50/90
         border-b
         border-gold-dark

@@ -3,6 +3,7 @@ import AppRouter from "./Routes/AppRouter";
 import Loader from "./Components/Common/Loader";
 import ScrollToHash from "./Components/Common/ScrollToHash";
 import { BrowserRouter } from "react-router-dom";
+import {  AuthProvider } from "@/Context/AuthContext";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
             },
           }}
         />
-        <AppRouter />
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
       </Loader>
     </BrowserRouter>
   );
