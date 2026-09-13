@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.schemas.user import StaffCreate
+from app.schemas.user import StaffCreate , StaffUpdate
 from app.models.user import User , UserRole
 from app.core.security import password_hash
 from fastapi import HTTPException , status
@@ -26,4 +26,52 @@ def create_staff_service(db: Session , staff:StaffCreate):
     db.commit()
     db.refresh(new_staff)
     return new_staff
-    
+
+def get_all_staff_service(db: Session):
+    return db.query(User).filter(
+        User.role == UserRole.STAFF
+    ).all()
+
+def edit_staff_service(db: Session , user_id:int , data:StaffUpdate):
+    staff = db.query(User).filter(
+        User.id == user_id , User.role == UserRole.STAFF
+    ).first()
+    if staff is None:
+        return None 
+    if data.name is not None:
+        staff.name = data.name 
+    if data.email is not None :
+        existing_user = db.query(User).filter(
+            User.email==data.email ,
+            User.id != user_id
+        ).first()
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="email is already registered"
+            )
+        staff.email == data.email
+    db.commit()
+    db.refresh(staff)
+    return staff 
+
+def delete_staff_service(db: Session , user_id:int):
+    staff = db.query(User).filter(
+        User.id == user_id, User.role == UserRole.STAFF
+    ).first()
+
+    if staff is None:
+        return None 
+
+    db.delete(staff)
+    db.commit()
+
+    return staff
+
+def get_staff_by_name(db: Session,name:str):
+    staff = db.query(User).filter(
+        User.name == name , User.role == UserRole.STAFF
+    ).first()
+
+    return staff
+

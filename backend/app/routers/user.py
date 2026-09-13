@@ -1,11 +1,9 @@
 from app.services.auth import find_user
 from fastapi import status , APIRouter , Depends ,HTTPException
-from app.schemas.user import UserResponse , UserLogin , TokenResponse , StaffCreate
+from app.schemas.user import   UserLogin , TokenResponse 
 from sqlalchemy.orm import Session 
 from app.database.db import get_db 
 from app.core.security import create_access_token
-from app.helpers.require_super_admin import is_super_admin
-from app.services.staff import create_staff_service
 
 router = APIRouter(
     prefix="/auth",
@@ -37,9 +35,3 @@ def login(
         "user":user
     }
 
-@router.post("/staff",response_model=UserResponse,status_code=status.HTTP_201_CREATED)
-def create_staff(
-    data:StaffCreate ,current_user=Depends(is_super_admin),db: Session=Depends(get_db)
-):
-    new_staff = create_staff_service(db=db,staff=data)
-    return new_staff
