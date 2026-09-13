@@ -5,6 +5,7 @@ import Login from "@/Pages/Login/Login";
 import SignUP from "@/Pages/SignUP/SignUP";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from "@/Pages/Dashboard/Dashboard";
 
 export default function AppRouter() {
   return (
@@ -15,7 +16,11 @@ export default function AppRouter() {
         <Route path="signup" element={<SignUP />} />
         <Route path="contact" element={<ContactPage />} />
       </Route>
-      <Route element={<ProtectedRoute />}></Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />}>
+
+        </Route>
+      </Route>
     </Routes>
   );
 }

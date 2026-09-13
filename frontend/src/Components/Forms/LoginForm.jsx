@@ -1,68 +1,77 @@
 import { useAuth } from "@/Context/AuthContext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import styled from "styled-components";
+import SmallLoader from "../Common/SmallLoader";
 
 export default function LoginForm() {
   const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const [userForm, setUserForm] = useState({
     email: "",
     password: "",
   });
-
+  const naviagte = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
+      setLoading(true);
       await login(userForm);
 
       toast.success("Logged in correctly, welcome back!");
+      setTimeout(() => {
+        naviagte("/dashboard");
+      }, 1500);
     } catch {
       toast.error("Invalid email or password.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <StyledForm onSubmit={handleLogin}>
-      <label>
-        Email
-        <input
-          value={userForm.email}
-          onChange={(e) =>
-            setUserForm({
-              ...userForm,
-              email: e.target.value,
-            })
-          }
-          placeholder="Enter your email"
-          type="email"
-          autoComplete="email"
-          required
-        />
-      </label>
+    <>
+      {loading ? <SmallLoader /> : ""}
+      <StyledForm onSubmit={handleLogin}>
+        <label>
+          Email
+          <input
+            value={userForm.email}
+            onChange={(e) =>
+              setUserForm({
+                ...userForm,
+                email: e.target.value,
+              })
+            }
+            placeholder="Enter your email"
+            type="email"
+            autoComplete="email"
+            required
+          />
+        </label>
 
-      <label>
-        Password
-        <input
-          value={userForm.password}
-          onChange={(e) =>
-            setUserForm({
-              ...userForm,
-              password: e.target.value,
-            })
-          }
-          placeholder="Enter your password"
-          type="password"
-          autoComplete="current-password"
-          required
-        />
-      </label>
+        <label>
+          Password
+          <input
+            value={userForm.password}
+            onChange={(e) =>
+              setUserForm({
+                ...userForm,
+                password: e.target.value,
+              })
+            }
+            placeholder="Enter your password"
+            type="password"
+            autoComplete="current-password"
+            required
+          />
+        </label>
 
-      <button type="submit">
-        Login
-      </button>
-    </StyledForm>
+        <button type="submit">Login</button>
+      </StyledForm>
+    </>
   );
 }
 
