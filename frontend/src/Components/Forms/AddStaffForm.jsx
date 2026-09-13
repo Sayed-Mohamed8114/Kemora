@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  addStaff,
-  editStaff,
-} from "@/Services/staffManagement";
+import { addStaff, editStaff } from "@/Services/staffManagement";
 import { toast } from "sonner";
 import {
   Eye,
@@ -13,41 +10,37 @@ import {
   X,
   Plus,
   Save,
+  Check,
 } from "lucide-react";
 
-export default function AddStaffForm({
-  staff,
-  onClose,
-  onSuccess,
-}) {
+export default function AddStaffForm({ staff, onClose, onSuccess }) {
+  // True when editing an existing staff member
   const isEditMode = Boolean(staff);
 
   const [staffForm, setStaffForm] = useState({
     name: "",
     email: "",
     password: "",
+    is_active: true,
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  /*
-   * When the selected staff changes:
-   * - null  -> create mode
-   * - staff -> edit mode
-   */
   useEffect(() => {
     if (staff) {
       setStaffForm({
         name: staff.name || "",
         email: staff.email || "",
         password: "",
+        is_active: staff.is_active ?? true,
       });
     } else {
       setStaffForm({
         name: "",
         email: "",
         password: "",
+        is_active: true,
       });
     }
 
@@ -60,6 +53,13 @@ export default function AddStaffForm({
     setStaffForm((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleStatusToggle = () => {
+    setStaffForm((prev) => ({
+      ...prev,
+      is_active: !prev.is_active,
     }));
   };
 
@@ -79,10 +79,7 @@ export default function AddStaffForm({
       return;
     }
 
-    /*
-     * Password is required only when creating
-     * a new staff account.
-     */
+    
     if (!isEditMode) {
       if (!staffForm.password) {
         toast.error("Please enter a password");
@@ -102,6 +99,7 @@ export default function AddStaffForm({
         await editStaff(staff.id, {
           name,
           email,
+          is_active: staffForm.is_active,
         });
 
         toast.success("Staff updated successfully");
@@ -115,10 +113,7 @@ export default function AddStaffForm({
         toast.success("Staff added successfully");
       }
 
-      /*
-       * Tell the parent page to refresh
-       * the staff list and close the modal.
-       */
+     
       await onSuccess?.();
     } catch (error) {
       const message =
@@ -148,11 +143,7 @@ export default function AddStaffForm({
                 dark:text-gold-light
               "
             >
-              {isEditMode ? (
-                <Save size={20} />
-              ) : (
-                <Plus size={20} />
-              )}
+              {isEditMode ? <Save size={20} /> : <Plus size={20} />}
             </div>
 
             <h2
@@ -201,7 +192,6 @@ export default function AddStaffForm({
         )}
       </div>
 
-      {/* Form Fields */}
       <div className="space-y-5">
         {/* Name */}
         <div>
@@ -253,7 +243,7 @@ export default function AddStaffForm({
                 disabled:cursor-not-allowed
                 disabled:opacity-60
                 dark:border-white/10
-                dark:bg-white/[0.03]
+                dark:bg-white/3
                 dark:text-white
                 dark:placeholder:text-slate-500
                 dark:focus:border-gold-light
@@ -313,7 +303,7 @@ export default function AddStaffForm({
                 disabled:cursor-not-allowed
                 disabled:opacity-60
                 dark:border-white/10
-                dark:bg-white/[0.03]
+                dark:bg-white/3
                 dark:text-white
                 dark:placeholder:text-slate-500
                 dark:focus:border-gold-light
@@ -323,7 +313,7 @@ export default function AddStaffForm({
           </div>
         </div>
 
-        {/* Password - Create only */}
+        {/* Password - Create mode only */}
         {!isEditMode && (
           <div>
             <label
@@ -374,7 +364,7 @@ export default function AddStaffForm({
                   disabled:cursor-not-allowed
                   disabled:opacity-60
                   dark:border-white/10
-                  dark:bg-white/[0.03]
+                  dark:bg-white/3
                   dark:text-white
                   dark:placeholder:text-slate-500
                   dark:focus:border-gold-light
@@ -384,9 +374,7 @@ export default function AddStaffForm({
 
               <button
                 type="button"
-                onClick={() =>
-                  setShowPassword((prev) => !prev)
-                }
+                onClick={() => setShowPassword((prev) => !prev)}
                 disabled={loading}
                 className="
                   absolute right-3 top-1/2
@@ -398,17 +386,9 @@ export default function AddStaffForm({
                   dark:text-slate-500
                   dark:hover:text-slate-200
                 "
-                aria-label={
-                  showPassword
-                    ? "Hide password"
-                    : "Show password"
-                }
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
 
@@ -418,7 +398,112 @@ export default function AddStaffForm({
           </div>
         )}
 
-        {/* Edit Mode Information */}
+        {/* Account Status - Edit mode only */}
+        {isEditMode && (
+          <div
+            className="
+              rounded-xl
+              border border-slate-200
+              bg-slate-50
+              p-4
+              dark:border-white/10
+              dark:bg-white/3
+            "
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                  Account Status
+                </p>
+
+                <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                  {staffForm.is_active
+                    ? "This staff member can access the dashboard."
+                    : "This staff member cannot access the dashboard."}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleStatusToggle}
+                disabled={loading}
+                className={`
+                  relative h-6 w-11 shrink-0 rounded-full
+                  transition-colors duration-200
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-gold-dark/30
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  dark:focus:ring-gold-light/30
+                  ${
+                    staffForm.is_active
+                      ? "bg-emerald-500"
+                      : "bg-slate-300 dark:bg-slate-600"
+                  }
+                `}
+                aria-label={
+                  staffForm.is_active
+                    ? "Deactivate staff account"
+                    : "Activate staff account"
+                }
+                aria-pressed={staffForm.is_active}
+              >
+                <span
+                  className={`
+                    absolute top-1
+                    flex h-4 w-4
+                    items-center justify-center
+                    rounded-full
+                    bg-white
+                    shadow-sm
+                    transition-transform duration-200
+                    ${
+                      staffForm.is_active
+                        ? "translate-x-6"
+                        : "translate-x-1"
+                    }
+                  `}
+                >
+                  {staffForm.is_active && (
+                    <Check
+                      size={10}
+                      className="text-emerald-600"
+                      strokeWidth={3}
+                    />
+                  )}
+                </span>
+              </button>
+            </div>
+
+            <div className="mt-3 flex items-center gap-2">
+              <span
+                className={`
+                  h-2 w-2 rounded-full
+                  ${
+                    staffForm.is_active
+                      ? "bg-emerald-500"
+                      : "bg-red-500"
+                  }
+                `}
+              />
+
+              <span
+                className={`
+                  text-xs font-semibold
+                  ${
+                    staffForm.is_active
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : "text-red-600 dark:text-red-400"
+                  }
+                `}
+              >
+                {staffForm.is_active ? "Active" : "Inactive"}
+              </span>
+            </div>
+          </div>
+        )}
+
         {isEditMode && (
           <div
             className="
@@ -441,7 +526,6 @@ export default function AddStaffForm({
         )}
       </div>
 
-      {/* Actions */}
       <div
         className="
           mt-7
@@ -511,11 +595,7 @@ export default function AddStaffForm({
             </>
           ) : (
             <>
-              {isEditMode ? (
-                <Save size={18} />
-              ) : (
-                <Plus size={18} />
-              )}
+              {isEditMode ? <Save size={18} /> : <Plus size={18} />}
 
               {isEditMode ? "Save Changes" : "Add Staff"}
             </>

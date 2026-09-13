@@ -11,7 +11,7 @@ export default function NavBarDashboard({ sidebarOpen, setSidebarOpen }) {
       className="
         sticky
         top-0
-        z-30
+        z-999
         flex
         w-full
         items-center

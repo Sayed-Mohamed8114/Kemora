@@ -25,19 +25,19 @@ export default function StaffMangamenetpage() {
     }
   };
 
-  // Open form in create mode
+  // open form in create mode
   const handleAdd = () => {
     setSelectedStaff(null);
     setShowAddStaff(true);
   };
 
-  // Open form in edit mode
+  // open form in edit mode
   const handleEdit = (user) => {
     setSelectedStaff(user);
     setShowAddStaff(true);
   };
 
-  // Delete staff
+  // delete staff
   const handleDelete = async (userId) => {
     try {
       await deleteStaff(userId);
@@ -58,7 +58,7 @@ export default function StaffMangamenetpage() {
     setSelectedStaff(null);
   };
 
-  // Called after successful add/edit
+  // after successful add/edit
   const handleFormSuccess = async () => {
     await getAllStaff();
     handleCloseForm();
@@ -77,11 +77,10 @@ export default function StaffMangamenetpage() {
         text-slate-900
         dark:bg-[#121212]
         dark:text-white
-        sm:px-6
+        sm:px-20
       "
     >
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
+      <div className="w-full">
         <div className="mb-8">
           <h1
             className="
@@ -125,7 +124,8 @@ export default function StaffMangamenetpage() {
               grid
               grid-cols-1
               gap-5
-              sm:grid-cols-2
+              lg:gap-5
+              lg:grid-cols-2
               xl:grid-cols-3
             "
           >
@@ -145,14 +145,15 @@ export default function StaffMangamenetpage() {
       <button
         onClick={handleAdd}
         className="
-          fixed bottom-6 right-6 z-[999]
+          fixed bottom-3 right-3 z-50
           flex items-center gap-2
-          rounded-full
+          rounded-lg
           bg-gold-dark
-          px-5 py-3.5
+          px-4 py-2 md:px-5 md:py-3.5 md:text-base
+          text-sm
           font-semibold text-white
           shadow-lg shadow-gold-dark/25
-          transition-all duration-300
+          transition-all duration-700
           hover:scale-105
           hover:bg-gold-light
           hover:text-slate-900
@@ -169,11 +170,10 @@ export default function StaffMangamenetpage() {
         <span>Add Staff</span>
       </button>
 
-      {/* Add / Edit Staff Modal */}
       {showAddStaff && (
         <div
           className="
-            fixed inset-0 z-[1000]
+            fixed inset-0 z-1000
             flex items-center justify-center
             bg-black/50
             p-4

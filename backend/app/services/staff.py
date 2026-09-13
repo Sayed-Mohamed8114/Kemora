@@ -51,6 +51,8 @@ def edit_staff_service(db: Session , user_id:int , data:StaffUpdate):
                 detail="email is already registered"
             )
         staff.email == data.email
+    if data.is_active is not None :
+        staff.is_active = data.is_active
     db.commit()
     db.refresh(staff)
     return staff 

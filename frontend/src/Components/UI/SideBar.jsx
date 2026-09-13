@@ -37,10 +37,11 @@ export default function SideBar({ sidebarOpen, setSidebarOpen }) {
       <div
         onClick={() => setSidebarOpen(false)}
         className={`
-          fixed inset-0 z-40
+          fixed inset-0 
           bg-black/40
           backdrop-blur-[2px]
           transition-opacity duration-300
+          z-200
           md:hidden
           ${
             sidebarOpen
@@ -53,28 +54,24 @@ export default function SideBar({ sidebarOpen, setSidebarOpen }) {
       <aside
         className={`
           group
-          fixed left-0 top-0 z-50
+          fixed left-0 top-0 z-300
           flex h-screen
           w-64 shrink-0
           flex-col
           overflow-hidden
           px-3 py-3
-
           bg-gray-100
           dark:bg-dark-bg
           dark:shadow-2xs 
           backdrop-blur-md
-
           shadow-xl
-
+          md:mt-[5vh]
           transition-all
           duration-500
           ease-in-out
-
-          md:sticky
+          md:fixed
           md:top-0
-          md:h-auto
-          md:min-h-full
+          md:h-[95vh]
           md:w-16
           md:translate-x-0
           md:shadow-none
@@ -83,8 +80,8 @@ export default function SideBar({ sidebarOpen, setSidebarOpen }) {
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        <div className="mb-4 flex items-center justify-between md:hidden flex-col">
-          <div className="flex items-center justify-between w-full">
+        <div className="mb-4 flex items-center justify-between z-999 md:hidden flex-col">
+          <div className="flex items-center mt-20 justify-between w-full">
             <h2 className="font-cinzel text-xl font-extrabold text-dark-bg dark:text-gold-dark">
               Kemora
             </h2>

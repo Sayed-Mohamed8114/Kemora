@@ -31,3 +31,4 @@ class StaffCreate(BaseModel):
 class StaffUpdate(BaseModel):
     name: str | None = Field(default=None, min_length=5, max_length=50)
     email: EmailStr | None = None
+    is_active:bool | None = None

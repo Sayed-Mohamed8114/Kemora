@@ -4,7 +4,7 @@ export default function StaffCard({ staff, ondelete, onEdit }) {
   return (
     <article
       className="
-        group relative w-[50vh] overflow-hidden rounded-2xl
+        group relative w-auto md:w-[60vh] lg:w-[45vh] xl:w-[60vh] overflow-hidden rounded-2xl
         border border-slate-200/80 bg-white
         p-5 shadow-sm
         transition-all duration-300
@@ -129,32 +129,33 @@ export default function StaffCard({ staff, ondelete, onEdit }) {
           </span>
         </div>
 
-        <div className="items-center flex justify-between px-8 mt-5 w-full">
+        <div className="items-center flex justify-center gap-5 px-8 mt-8 w-full">
           <button
             onClick={() => onEdit(staff)}
             className="
     rounded-md
-    border border-gold-dark/30
-    bg-gold-dark/10
+    bg-gold-dark
     px-4 py-1
-    text-sm font-semibold
-    text-gold-dark
+    text-[14px] md:text-lg
+    font-semibold
+    text-light-border
     transition-colors
-    duration-300
+    duration-700
     hover:bg-gold-dark
     hover:text-white
-    dark:border-gold-light/30
-    dark:bg-gold-light/10
-    dark:text-gold-light
     dark:hover:bg-gold-light
     dark:hover:text-slate-900
+    w-[35%] cursor-pointer
+
   "
           >
             Edit
           </button>{" "}
           <button
             onClick={() => ondelete(staff.id)}
-            className="bg-red-700 text-lg font-serif font-bold w-[35%] text-light-border hover:bg-red-500 hover:text-white cursor-pointer duration-700 px-4 py-1 rounded-md transition-colors"
+            className="bg-red-700 text-[14px] md:text-lg font-serif font-bold w-[35%]
+             text-light-border hover:bg-red-500 hover:text-white cursor-pointer duration-700 px-4 
+             py-1 rounded-md transition-colors"
           >
             Delete
           </button>
