@@ -22,3 +22,8 @@ class TokenResponse(BaseModel):
     access_token:str 
     token_type:str
     user:UserResponse
+
+class StaffCreate(BaseModel):
+    name:str = Field(min_length=5,max_length=50)
+    email:EmailStr
+    password:str = Field(min_length=5 , max_length=50)

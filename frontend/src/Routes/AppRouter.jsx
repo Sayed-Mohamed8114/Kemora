@@ -6,6 +6,7 @@ import SignUP from "@/Pages/SignUP/SignUP";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "@/Pages/Dashboard/Dashboard";
+import StaffMangamenetpage from "@/Pages/StaffMangementPafe/StaffMangamenetpage";
 
 export default function AppRouter() {
   return (
@@ -18,7 +19,7 @@ export default function AppRouter() {
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />}>
-
+          <Route path="staff" element={<StaffMangamenetpage />} />
         </Route>
       </Route>
     </Routes>

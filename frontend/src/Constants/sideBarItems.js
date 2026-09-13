@@ -10,22 +10,22 @@ import {
 export const adminSidebarItems = [
   {
     label: "Dashboard",
-    path: "/admin/dashboard",
+    path: "/",
     icon: RiDashboard3Fill,
   },
   {
     label: "Staff Management",
-    path: "/admin/staff",
+    path: "staff",
     icon: RiTeamFill,
   },
   {
     label: "Tours Management",
-    path: "/admin/tours",
+    path: "tours",
     icon: RiMapPin2Fill,
   },
   {
     label: "Customer Inquiries",
-    path: "/admin/inquiries",
+    path: "inquiries",
     icon: RiMessage3Fill,
   },
 ];
