@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import styled from "styled-components";
-import SmallLoader from "../Common/SmallLoader";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -33,7 +32,6 @@ export default function LoginForm() {
 
   return (
     <>
-      {loading ? <SmallLoader /> : ""}
       <StyledForm onSubmit={handleLogin}>
         <label>
           Email
@@ -69,7 +67,7 @@ export default function LoginForm() {
           />
         </label>
 
-        <button type="submit">Login</button>
+        <button type="submit">{loading ? "Logging" : "Login"}</button>
       </StyledForm>
     </>
   );
