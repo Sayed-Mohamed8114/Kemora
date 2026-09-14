@@ -6,7 +6,8 @@ from datetime import datetime
 
 class UserRole(str,Enum):
     SUPER_ADMIN="super_admin" 
-    STAFF="staff" 
+    STAFF="staff"
+    CUSTOMER="customer" 
 
 
 class User(Base):

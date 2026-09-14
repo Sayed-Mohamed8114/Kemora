@@ -76,4 +76,3 @@ def get_staff_by_name(db: Session,name:str):
     ).first()
 
     return staff
-

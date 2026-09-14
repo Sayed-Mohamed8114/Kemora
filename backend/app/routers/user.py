@@ -1,6 +1,6 @@
-from app.services.auth import find_user
+from app.services.auth import find_user,register_service
 from fastapi import status , APIRouter , Depends ,HTTPException
-from app.schemas.user import   UserLogin , TokenResponse 
+from app.schemas.user import   UserLogin , TokenResponse  , CustomerResponse , CustomerCreate
 from sqlalchemy.orm import Session 
 from app.database.db import get_db 
 from app.core.security import create_access_token
@@ -35,3 +35,10 @@ def login(
         "user":user
     }
 
+@router.post("/register",response_model=CustomerResponse , status_code=status.HTTP_201_CREATED)
+def register(
+    user_data: CustomerCreate,
+    db: Session = Depends(get_db)
+):
+    user = register_service(user_data=user_data , db=db)
+    return user
