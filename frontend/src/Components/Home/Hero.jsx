@@ -1,4 +1,5 @@
 import { Pyramids, nightPyramid } from "@/assets/egyImages";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -160,7 +161,7 @@ export default function Hero() {
               font-cinzel
             "
           >
-            Explore Egypt
+            <Link to={"/login"}>Explore Egypt</Link>
           </button>
         </div>
       </div>

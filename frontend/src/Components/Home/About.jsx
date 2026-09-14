@@ -74,28 +74,6 @@ export default function About() {
             </div>
 
           </div>
-
-
-          <button
-            className="
-              mt-10
-              px-7 py-3
-              rounded-full
-              bg-gold-dark
-              dark:bg-gold-light
-              text-white
-              dark:text-dark-bg
-              font-manrope
-              font-semibold
-              transition-all
-              duration-900
-              hover:scale-105
-              items-center justify-center cursor-pointer
-            "
-          >
-            Discover Our Story →
-          </button>
-
         </div>
 
       </div>
