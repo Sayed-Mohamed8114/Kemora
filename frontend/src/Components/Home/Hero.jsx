@@ -161,7 +161,7 @@ export default function Hero() {
               font-cinzel
             "
           >
-            <Link to={"/login"}>Explore Egypt</Link>
+            <Link to={"/login"} className="z-999">Explore Egypt</Link>
           </button>
         </div>
       </div>

@@ -12,16 +12,21 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await login(userForm);
+      const data=await login(userForm);
 
       toast.success("Logged in correctly, welcome back!");
+      const rolesRouter = {
+        super_admin:"/dashboard/admin",
+        staff:"/staff/tours",
+        customer:"/tours"
+      }
       setTimeout(() => {
-        naviagte("/dashboard");
+        navigate(rolesRouter[data.user.role] || "/");
       }, 1500);
     } catch {
       toast.error("Invalid email or password.");

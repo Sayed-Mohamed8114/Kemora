@@ -10,22 +10,22 @@ import {
 export const adminSidebarItems = [
   {
     label: "Dashboard",
-    path: "admin",
+    path: "/dashboard/admin",
     icon: RiDashboard3Fill,
   },
   {
     label: "Staff Management",
-    path: "staff",
+    path: "/dashboard/staff",
     icon: RiTeamFill,
   },
   {
     label: "Tours Management",
-    path: "tours",
+    path: "dashboard/tours",
     icon: RiMapPin2Fill,
   },
   {
     label: "Customer Inquiries",
-    path: "inquiries",
+    path: "dashboard/inquiries",
     icon: RiMessage3Fill,
   },
 ];
@@ -69,5 +69,5 @@ export const userSidebarItems = [
 export const sidebarByRoles = {
   super_admin: adminSidebarItems,
   staff: staffSidebarItems,
-  user: userSidebarItems,
+  customer: userSidebarItems,
 };

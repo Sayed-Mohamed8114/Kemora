@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
 
+const LOADER_KEY = "kemora_loader_seen";
+
 export default function Loader({ children }) {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(100);
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
+    const hasSeenLoader = sessionStorage.getItem(LOADER_KEY);
+
+    // User has already seen the loader in this session
+    if (hasSeenLoader) {
+      setFinished(true);
+      return;
+    }
+
     const duration = 3500;
     const intervalTime = 30;
 
     let outroTimer;
+
+    setProgress(0);
 
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -18,6 +30,7 @@ export default function Loader({ children }) {
           clearInterval(interval);
 
           outroTimer = setTimeout(() => {
+            sessionStorage.setItem(LOADER_KEY, "true");
             setFinished(true);
           }, 1000);
 
@@ -106,6 +119,7 @@ export default function Loader({ children }) {
           </h1>
         </div>
 
+        {/* Divider */}
         <div
           className={`
             mt-6
@@ -117,6 +131,7 @@ export default function Loader({ children }) {
           `}
         />
 
+        {/* Progress */}
         <div
           className={`
             mt-10

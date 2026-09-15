@@ -10,24 +10,122 @@ import StaffMangamenetpage from "@/Pages/StaffMangementPafe/StaffMangamenetpage"
 import CustomerInquiries from "@/Pages/CustomerInquiries/CustomerInquiries";
 import AdminDashboard from "@/Pages/AdminDashboard/AdminDashboard";
 import ToursManagement from "@/Pages/ToursManagement/ToursManagement";
+import RoleRoute from "./RoleRoute";
+import ErrorPage from "@/Pages/404ErrorPage/404Page";
 
 export default function AppRouter() {
   return (
     <Routes>
+      {/* Public */}
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUP />} />
         <Route path="contact" element={<ContactPage />} />
       </Route>
+
+      {/* Authenticated users */}
       <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="admin" element={<AdminDashboard />} />
-          <Route path="staff" element={<StaffMangamenetpage />} />
-          <Route path="inquiries" element={<CustomerInquiries />} />
-          <Route path="tours" element={<ToursManagement />} />
+        <Route element={<Dashboard />}>
+
+          {/* Admin */}
+          <Route
+            path="dashboard/admin"
+            element={
+              <RoleRoute allowedRoles={["super_admin"]}>
+                <AdminDashboard />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="dashboard/staff"
+            element={
+              <RoleRoute allowedRoles={["super_admin"]}>
+                <StaffMangamenetpage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="dashboard/tours"
+            element={
+              <RoleRoute allowedRoles={["super_admin", "staff"]}>
+                <ToursManagement />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="dashboard/inquiries"
+            element={
+              <RoleRoute allowedRoles={["super_admin", "staff"]}>
+                <CustomerInquiries />
+              </RoleRoute>
+            }
+          />
+
+          {/* Staff */}
+          <Route
+            path="staff/tours"
+            element={
+              <RoleRoute allowedRoles={["staff"]}>
+                <ToursManagement />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="staff/my-tours"
+            element={
+              <RoleRoute allowedRoles={["staff"]}>
+                <div>Tours By Me</div>
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="staff/inquiries"
+            element={
+              <RoleRoute allowedRoles={["staff"]}>
+                <CustomerInquiries />
+              </RoleRoute>
+            }
+          />
+
+          {/* Customer */}
+          <Route
+            path="tours"
+            element={
+              <RoleRoute allowedRoles={["customer"]}>
+                <div>Tours</div>
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="my-tours"
+            element={
+              <RoleRoute allowedRoles={["customer"]}>
+                <div>My Tours</div>
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="inquiry"
+            element={
+              <RoleRoute allowedRoles={["customer"]}>
+                <div>Make Inquiry</div>
+              </RoleRoute>
+            }
+          />
+
         </Route>
       </Route>
+
+      {/* 404 */}
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }
