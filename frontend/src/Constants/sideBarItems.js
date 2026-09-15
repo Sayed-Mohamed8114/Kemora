@@ -10,7 +10,7 @@ import {
 export const adminSidebarItems = [
   {
     label: "Dashboard",
-    path: "/",
+    path: "admin",
     icon: RiDashboard3Fill,
   },
   {

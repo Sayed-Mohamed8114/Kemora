@@ -2,375 +2,597 @@ import styled from "styled-components";
 
 const SmallLoader = () => {
   return (
-    <StyledWrapper className="h-screen w-full bg-light-border dark:bg-dark-border">
-      <div className="scene" role="status" aria-label="Loading">
-        <div className="book" aria-hidden="true">
-          <div className="stack">
-            <div className="back-cover" />
-            <div className="page" />
-            <div className="page" />
-            <div className="page" />
-            <div className="page" />
-            <div className="page" />
-            <div className="page" />
-            <div className="cover" />
-          </div>
-        </div>
-        <p className="label">Loading</p>
-      </div>
+    <StyledWrapper className="flex h-[50vh] items-center justify-center">
+      <svg
+        aria-label="loader being flipped clockwise and circled by three curves fading in and out"
+        role="img"
+        height="56px"
+        width="56px"
+        viewBox="0 0 56 56"
+        className="loader"
+      >
+        <clipPath id="sand-mound-top">
+          <path
+            d="M 14.613 13.087 C 15.814 12.059 19.3 8.039 20.3 6.539 C 21.5 4.789 21.5 2.039 21.5 2.039 L 3 2.039 C 3 2.039 3 4.789 4.2 6.539 C 5.2 8.039 8.686 12.059 9.887 13.087 C 11 14.039 12.25 14.039 12.25 14.039 C 12.25 14.039 13.5 14.039 14.613 13.087 Z"
+            className="loader__sand-mound-top"
+          />
+        </clipPath>
+
+        <clipPath id="sand-mound-bottom">
+          <path
+            d="M 14.613 20.452 C 15.814 21.48 19.3 25.5 20.3 27 C 21.5 28.75 21.5 31.5 21.5 31.5 L 3 31.5 C 3 31.5 3 28.75 4.2 27 C 5.2 25.5 8.686 21.48 9.887 20.452 C 11 19.5 12.25 19.5 12.25 19.5 C 12.25 19.5 13.5 19.5 14.613 20.452 Z"
+            className="loader__sand-mound-bottom"
+          />
+        </clipPath>
+
+        <g transform="translate(2,2)">
+          {/* Motion circles */}
+          <g
+            transform="rotate(-90,26,26)"
+            strokeLinecap="round"
+            strokeDashoffset="153.94"
+            strokeDasharray="153.94 153.94"
+            stroke="var(--loader-color)"
+            fill="none"
+          >
+            <circle
+              transform="rotate(0,26,26)"
+              r="24.5"
+              cy={26}
+              cx={26}
+              strokeWidth="2.5"
+              className="loader__motion-thick"
+            />
+
+            <circle
+              transform="rotate(90,26,26)"
+              r="24.5"
+              cy={26}
+              cx={26}
+              strokeWidth="1.75"
+              className="loader__motion-medium"
+            />
+
+            <circle
+              transform="rotate(180,26,26)"
+              r="24.5"
+              cy={26}
+              cx={26}
+              strokeWidth={1}
+              className="loader__motion-thin"
+            />
+          </g>
+
+          {/* Hourglass */}
+          <g
+            transform="translate(13.75,9.25)"
+            className="loader__model"
+          >
+            {/* Bottle */}
+            <path
+              d="M 1.5 2 L 23 2 C 23 2 22.5 8.5 19 12 C 16 15.5 13.5 13.5 13.5 16.75 C 13.5 20 16 18 19 21.5 C 22.5 25 23 31.5 23 31.5 L 1.5 31.5 C 1.5 31.5 2 25 5.5 21.5 C 8.5 18 11 20 11 16.75 C 11 13.5 8.5 15.5 5.5 12 C 2 8.5 1.5 2 1.5 2 Z"
+              fill="var(--loader-color)"
+            />
+
+            {/* Sand */}
+            <g
+              strokeLinecap="round"
+              stroke="hsl(35,90%,90%)"
+            >
+              <line
+                y2="20.75"
+                x2={12}
+                y1="15.75"
+                x1={12}
+                strokeDasharray="0.25 33.75"
+                strokeWidth={1}
+                className="loader__sand-grain-left"
+              />
+
+              <line
+                y2="21.75"
+                x2="12.5"
+                y1="16.75"
+                x1="12.5"
+                strokeDasharray="0.25 33.75"
+                strokeWidth={1}
+                className="loader__sand-grain-right"
+              />
+
+              <line
+                y2="31.5"
+                x2="12.25"
+                y1={18}
+                x1="12.25"
+                strokeDasharray="0.5 107.5"
+                strokeWidth={1}
+                className="loader__sand-drop"
+              />
+
+              <line
+                y2="31.5"
+                x2="12.25"
+                y1="14.75"
+                x1="12.25"
+                strokeDasharray="54 54"
+                strokeWidth="1.5"
+                className="loader__sand-fill"
+              />
+
+              <line
+                y2="31.5"
+                x2={12}
+                y1={16}
+                x1={12}
+                strokeDasharray="1 107"
+                strokeWidth={1}
+                stroke="hsl(35,90%,83%)"
+                className="loader__sand-line-left"
+              />
+
+              <line
+                y2="31.5"
+                x2="12.5"
+                y1={16}
+                x1="12.5"
+                strokeDasharray="12 96"
+                strokeWidth={1}
+                stroke="hsl(35,90%,83%)"
+                className="loader__sand-line-right"
+              />
+
+              <g
+                strokeWidth={0}
+                fill="hsl(35,90%,90%)"
+              >
+                <path
+                  d="M 12.25 15 L 15.392 13.486 C 21.737 11.168 22.5 2 22.5 2 L 2 2.013 C 2 2.013 2.753 11.046 9.009 13.438 L 12.25 15 Z"
+                  clipPath="url(#sand-mound-top)"
+                />
+
+                <path
+                  d="M 12.25 18.5 L 15.392 20.014 C 21.737 22.332 22.5 31.5 22.5 31.5 L 2 31.487 C 2 31.487 2.753 22.454 9.009 20.062 Z"
+                  clipPath="url(#sand-mound-bottom)"
+                />
+              </g>
+            </g>
+
+            {/* Glare */}
+            <g
+              strokeWidth={2}
+              strokeLinecap="round"
+              opacity="0.7"
+              fill="none"
+            >
+              <path
+                d="M 19.437 3.421 C 19.437 3.421 19.671 6.454 17.914 8.846 C 16.157 11.238 14.5 11.5 14.5 11.5"
+                stroke="var(--loader-highlight)"
+                className="loader__glare-top"
+              />
+
+              <path
+                transform="rotate(180,12.25,16.75)"
+                d="M 19.437 3.421 C 19.437 3.421 19.671 6.454 17.914 8.846 C 16.157 11.238 14.5 11.5 14.5 11.5"
+                stroke="var(--loader-highlight-transparent)"
+                className="loader__glare-bottom"
+              />
+            </g>
+
+            {/* Top frame */}
+            <rect
+              height={2}
+              width="24.5"
+              fill="hsl(var(--hue),90%,50%)"
+            />
+
+            <rect
+              height={1}
+              width="19.5"
+              y="0.5"
+              x="2.5"
+              ry="0.5"
+              rx="0.5"
+              fill="hsl(var(--hue),90%,57.5%)"
+            />
+
+            {/* Bottom frame */}
+            <rect
+              height={2}
+              width="24.5"
+              y="31.5"
+              fill="hsl(var(--hue),90%,50%)"
+            />
+
+            <rect
+              height={1}
+              width="19.5"
+              y={32}
+              x="2.5"
+              ry="0.5"
+              rx="0.5"
+              fill="hsl(var(--hue),90%,57.5%)"
+            />
+          </g>
+        </g>
+      </svg>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
-  .scene {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    padding: 5rem 0 3rem;
-    perspective: 1200px;
+  /*
+    Light mode:
+    Black hourglass + black motion lines
+  */
+  --loader-color: #000000;
+  --loader-highlight: rgba(255, 255, 255, 0.7);
+  --loader-highlight-transparent: rgba(255, 255, 255, 0);
+
+  /*
+    Dark mode:
+    White hourglass + white motion lines
+  */
+  .dark & {
+    --loader-color: #ffffff;
+    --loader-highlight: rgba(0, 0, 0, 0.7);
+    --loader-highlight-transparent: rgba(0, 0, 0, 0);
   }
 
-  .book {
-    --w: 113px;
-    --h: 170px;
-    --dur: 4s;
-    --cover: #873e23;
-    --paper: #faf5ec;
-    --paper-back: #f6f0e4;
-    --endpaper: #e8e0d0;
-    --ink: rgba(160, 130, 90, 0.25);
-    --foil: rgba(180, 210, 255, 0.55);
+  .loader {
+    --dur: 2s;
+    --hue: 35;
 
-    position: relative;
-    width: 260px;
-    height: 180px;
-    transform-style: preserve-3d;
-    animation: bob var(--dur) ease-in-out infinite;
-  }
-  @keyframes bob {
-    0%,
-    100% {
-      transform: rotateX(28deg) rotateY(-10deg);
-    }
-    50% {
-      transform: rotateX(28deg) rotateY(-10deg) translateY(-6px);
-    }
+    display: block;
+    margin: auto;
+    width: 14em;
+    height: auto;
   }
 
-  .stack {
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    width: var(--w);
-    height: var(--h);
-    transform: translateZ(10px);
-    transform-style: preserve-3d;
+  .loader__glare-top,
+  .loader__glare-bottom,
+  .loader__model,
+  .loader__motion-thick,
+  .loader__motion-medium,
+  .loader__motion-thin,
+  .loader__sand-drop,
+  .loader__sand-fill,
+  .loader__sand-grain-left,
+  .loader__sand-grain-right,
+  .loader__sand-line-left,
+  .loader__sand-line-right,
+  .loader__sand-mound-top,
+  .loader__sand-mound-bottom {
+    animation-duration: var(--dur);
+    animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+    animation-iteration-count: infinite;
   }
 
-  /* leaves: back cover, 6 pages, front cover */
-  .stack > * {
-    position: absolute;
-    inset: 0;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    will-change: transform;
-    animation: var(--dur) ease-in-out infinite; /* name assigned below */
-  }
-  .stack > *::before,
-  .stack > *::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 0 3px 3px 0;
-    backface-visibility: hidden;
-    background-repeat: no-repeat;
-    transform: translateZ(var(--z, 0px));
-  }
-  .stack > *::after {
-    transform: translateZ(var(--z, 0px)) rotateY(180deg);
+  .loader__glare-top {
+    animation-name: glare-top;
   }
 
-  /* ruled paper drawn with 4 gradient layers instead of ~90 <div>s.
-     period 40px, one 2px rule per layer at 0/10/20/30 → widths cycle 93,70,57,86.
-     --rows = line count × 10px, and clips the block cleanly. */
-  .page::before,
-  .page::after,
-  .cover::after {
-    background-image:
-      repeating-linear-gradient(var(--ink) 0 2px, #0000 0 40px),
-      repeating-linear-gradient(#0000 0 10px, var(--ink) 0 12px, #0000 0 40px),
-      repeating-linear-gradient(#0000 0 20px, var(--ink) 0 22px, #0000 0 40px),
-      repeating-linear-gradient(#0000 0 30px, var(--ink) 0 32px, #0000 0 40px);
-    background-position: 10px 12px;
-    background-size:
-      93px var(--rows),
-      70px var(--rows),
-      57px var(--rows),
-      86px var(--rows);
+  .loader__glare-bottom {
+    animation-name: glare-bottom;
   }
 
-  .page::before {
-    --rows: 110px;
-    background-color: var(--paper);
-    box-shadow: inset -10px 0 10px -8px rgba(0, 0, 0, 0.16);
-  }
-  .page::after {
-    --rows: 90px;
-    background-color: var(--paper-back);
-    box-shadow: inset 10px 0 10px -8px rgba(0, 0, 0, 0.16);
+  .loader__model {
+    animation-name: loader-flip;
+    transform-origin: 12.25px 16.75px;
   }
 
-  .cover::before {
-    background-color: var(--cover);
-    background-image:
-      radial-gradient(
-        circle at 56px 46px,
-        #0000 0 15px,
-        rgba(180, 210, 255, 0.2) 15px 16px,
-        #0000 16px 22px,
-        rgba(180, 210, 255, 0.35) 22px 24px,
-        #0000 24px
-      ),
-      linear-gradient(var(--foil) 0 0), linear-gradient(var(--foil) 0 0);
-    background-position:
-      0 0,
-      12px 122px,
-      12px 132px;
-    background-size:
-      auto,
-      71px 3px,
-      49px 3px;
-    border-radius: 0 4px 4px 0;
-    box-shadow: inset -14px 0 12px -8px rgba(0, 0, 0, 0.35);
-  }
-  .cover::after {
-    --ink: rgba(160, 130, 90, 0.2);
-    --rows: 50px;
-    background-color: var(--endpaper);
-    border-radius: 0 4px 4px 0;
-    box-shadow: inset 12px 0 10px -8px rgba(0, 0, 0, 0.13);
+  .loader__motion-thick,
+  .loader__motion-medium,
+  .loader__motion-thin {
+    transform-origin: 26px 26px;
   }
 
-  .back-cover::before {
-    background-color: var(--cover);
-    border-radius: 0 4px 4px 0;
-    box-shadow:
-      inset -4px 0 10px rgba(0, 0, 0, 0.3),
-      inset -18px 0 12px -8px rgba(0, 0, 0, 0.25);
-  }
-  .back-cover::after {
-    display: none;
+  .loader__motion-thick {
+    animation-name: motion-thick;
   }
 
-  /* depth: real translateZ replaces z-index, so coplanar faces can't z-fight
-     and the stack reads as a solid block */
-  .cover {
-    --z: 0px;
-    animation-name: f0;
-  }
-  .page:nth-child(2) {
-    --z: -0.3px;
-    animation-name: f1;
-  }
-  .page:nth-child(3) {
-    --z: -0.6px;
-    animation-name: f2;
-  }
-  .page:nth-child(4) {
-    --z: -0.9px;
-    animation-name: f3;
-  }
-  .page:nth-child(5) {
-    --z: -1.2px;
-    animation-name: f4;
-  }
-  .page:nth-child(6) {
-    --z: -1.5px;
-    animation-name: f5;
-  }
-  .page:nth-child(7) {
-    --z: -1.8px;
-    animation-name: f6;
-  }
-  .back-cover {
-    --z: -2.1px;
+  .loader__motion-medium {
+    animation-name: motion-medium;
   }
 
-  /* Open order cover→p6, close order p6→cover. That's a time *stretch*, not a
-     shift, so animation-delay can't express it — one block per leaf is required. */
-  @keyframes f0 {
-    0% {
-      transform: rotateY(0deg);
-    }
-    5% {
-      transform: rotateY(-8deg);
-    }
-    25%,
-    60% {
-      transform: rotateY(-178deg);
-    }
-    70% {
-      transform: rotateY(-172deg);
-    }
-    85%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f1 {
-    0%,
-    2% {
-      transform: rotateY(0deg);
-    }
-    7% {
-      transform: rotateY(-8deg);
-    }
-    27%,
-    58% {
-      transform: rotateY(-178deg);
-    }
-    68% {
-      transform: rotateY(-172deg);
-    }
-    83%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f2 {
-    0%,
-    4% {
-      transform: rotateY(0deg);
-    }
-    9% {
-      transform: rotateY(-8deg);
-    }
-    29%,
-    56% {
-      transform: rotateY(-178deg);
-    }
-    66% {
-      transform: rotateY(-172deg);
-    }
-    81%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f3 {
-    0%,
-    6% {
-      transform: rotateY(0deg);
-    }
-    11% {
-      transform: rotateY(-8deg);
-    }
-    31%,
-    54% {
-      transform: rotateY(-178deg);
-    }
-    64% {
-      transform: rotateY(-172deg);
-    }
-    79%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f4 {
-    0%,
-    8% {
-      transform: rotateY(0deg);
-    }
-    13% {
-      transform: rotateY(-8deg);
-    }
-    33%,
-    52% {
-      transform: rotateY(-178deg);
-    }
-    62% {
-      transform: rotateY(-172deg);
-    }
-    77%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f5 {
-    0%,
-    10% {
-      transform: rotateY(0deg);
-    }
-    15% {
-      transform: rotateY(-8deg);
-    }
-    35%,
-    50% {
-      transform: rotateY(-178deg);
-    }
-    60% {
-      transform: rotateY(-172deg);
-    }
-    75%,
-    100% {
-      transform: rotateY(0deg);
-    }
-  }
-  @keyframes f6 {
-    0%,
-    12% {
-      transform: rotateY(0deg);
-    }
-    17% {
-      transform: rotateY(-8deg);
-    }
-    37%,
-    48% {
-      transform: rotateY(-178deg);
-    }
-    58% {
-      transform: rotateY(-172deg);
-    }
-    73%,
-    100% {
-      transform: rotateY(0deg);
-    }
+  .loader__motion-thin {
+    animation-name: motion-thin;
   }
 
-  .label {
-    margin: 0;
-    font:
-      600 14px/1 system-ui,
-      sans-serif;
-    color: #a0a0a0;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    animation: lp 1.5s ease-in-out infinite alternate;
+  .loader__sand-drop {
+    animation-name: sand-drop;
   }
-  @keyframes lp {
+
+  .loader__sand-fill {
+    animation-name: sand-fill;
+  }
+
+  .loader__sand-grain-left {
+    animation-name: sand-grain-left;
+  }
+
+  .loader__sand-grain-right {
+    animation-name: sand-grain-right;
+  }
+
+  .loader__sand-line-left {
+    animation-name: sand-line-left;
+  }
+
+  .loader__sand-line-right {
+    animation-name: sand-line-right;
+  }
+
+  .loader__sand-mound-top {
+    animation-name: sand-mound-top;
+  }
+
+  .loader__sand-mound-bottom {
+    animation-name: sand-mound-bottom;
+    transform-origin: 12.25px 31.5px;
+  }
+
+  /* --------------------------------
+     Loader Flip
+  -------------------------------- */
+
+  @keyframes loader-flip {
     from {
-      opacity: 0.4;
+      transform: translate(13.75px, 9.25px) rotate(-180deg);
     }
+
+    24%,
     to {
-      opacity: 1;
+      transform: translate(13.75px, 9.25px) rotate(0);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .book,
-    .stack > *,
-    .label {
-      animation: none;
+  /* --------------------------------
+     Glare
+  -------------------------------- */
+
+  @keyframes glare-top {
+    from {
+      stroke: var(--loader-highlight-transparent);
     }
-    .book {
-      transform: rotateX(28deg) rotateY(-10deg);
+
+    24%,
+    to {
+      stroke: var(--loader-highlight);
     }
-    .label {
-      opacity: 0.8;
+  }
+
+  @keyframes glare-bottom {
+    from {
+      stroke: var(--loader-highlight);
+    }
+
+    24%,
+    to {
+      stroke: var(--loader-highlight-transparent);
+    }
+  }
+
+  /* --------------------------------
+     Motion - Thick
+  -------------------------------- */
+
+  @keyframes motion-thick {
+    from {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.67turn);
+    }
+
+    20% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: var(--loader-color);
+      stroke-dashoffset: 141.11;
+      transform: rotate(1turn);
+    }
+
+    40%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1.33turn);
+    }
+  }
+
+  /* --------------------------------
+     Motion - Medium
+  -------------------------------- */
+
+  @keyframes motion-medium {
+    from,
+    8% {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.5turn);
+    }
+
+    20% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: var(--loader-color);
+      stroke-dashoffset: 147.53;
+      transform: rotate(0.83turn);
+    }
+
+    32%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1.17turn);
+    }
+  }
+
+  /* --------------------------------
+     Motion - Thin
+  -------------------------------- */
+
+  @keyframes motion-thin {
+    from,
+    4% {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.33turn);
+    }
+
+    24% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: var(--loader-color);
+      stroke-dashoffset: 134.7;
+      transform: rotate(0.67turn);
+    }
+
+    44%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1turn);
+    }
+  }
+
+  /* --------------------------------
+     Sand Drop
+  -------------------------------- */
+
+  @keyframes sand-drop {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 1;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -107;
+    }
+  }
+
+  /* --------------------------------
+     Sand Fill
+  -------------------------------- */
+
+  @keyframes sand-fill {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 55;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -54;
+    }
+  }
+
+  /* --------------------------------
+     Sand Grain Left
+  -------------------------------- */
+
+  @keyframes sand-grain-left {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 29;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -22;
+    }
+  }
+
+  /* --------------------------------
+     Sand Grain Right
+  -------------------------------- */
+
+  @keyframes sand-grain-right {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 27;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+
+  /* --------------------------------
+     Sand Line Left
+  -------------------------------- */
+
+  @keyframes sand-line-left {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 53;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -55;
+    }
+  }
+
+  /* --------------------------------
+     Sand Line Right
+  -------------------------------- */
+
+  @keyframes sand-line-right {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 14;
+    }
+
+    70%,
+    to {
+      stroke-dashoffset: -24.5;
+    }
+  }
+
+  /* --------------------------------
+     Sand Mound Top
+  -------------------------------- */
+
+  @keyframes sand-mound-top {
+    from,
+    10% {
+      animation-timing-function: linear;
+      transform: translate(0, 0);
+    }
+
+    15% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      transform: translate(0, 1.5px);
+    }
+
+    51%,
+    to {
+      transform: translate(0, 13px);
+    }
+  }
+
+  /* --------------------------------
+     Sand Mound Bottom
+  -------------------------------- */
+
+  @keyframes sand-mound-bottom {
+    from,
+    31% {
+      animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
+      transform: scale(1, 0);
+    }
+
+    56%,
+    to {
+      transform: scale(1, 1);
     }
   }
 `;
