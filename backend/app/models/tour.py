@@ -13,6 +13,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base
 from app.models.user import User
 from app.models.tour_schedule import TourSchedule
+from app.models.booking import Booking
 
 class TourStatus(str, Enum):
     DRAFT = "draft"

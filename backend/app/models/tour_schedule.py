@@ -5,6 +5,7 @@ from sqlalchemy import DateTime , Date, Time , ForeignKey, Enum as SQLenum
 from app.models.tour import Tour
 
 from enum import Enum
+from app.models.booking import Booking
 
 class ScheduleStatus(str,Enum):
     AVAILABLE= "available"
@@ -44,4 +45,7 @@ class TourSchedule(Base):
         nullable=False
     )
 
+    bookings: Mapped[list["Booking"]] = relationship(
+    back_populates="tour_schedule"
+    )
     

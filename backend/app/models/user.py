@@ -2,8 +2,10 @@ from enum import Enum
 from datetime import datetime
 from sqlalchemy import String, Boolean, Enum as SQLenum, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.models.base import Base
 from app.models.tour import Tour
+from app.models.booking import Booking
 
 class UserRole(str, Enum):
     SUPER_ADMIN = "super_admin"
@@ -66,4 +68,8 @@ class User(Base):
 
     created_tours: Mapped[list["Tour"]] = relationship(
         back_populates="creator"
+    )
+
+    bookings: Mapped[list["Booking"]] = relationship(
+    back_populates="customer"
     )
