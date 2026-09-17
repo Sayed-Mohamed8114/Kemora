@@ -1,7 +1,8 @@
 from app.models.user import User 
-from app.schemas.user import UserUpdate  , ChangePasswordRequest 
+from app.schemas.user import UserUpdate , ChangePasswordRequest 
 from sqlalchemy.orm import Session 
 from fastapi import HTTPException , status
+from app.core.security import password_hash
 
 def update_profile_service(
     user_data: UserUpdate,
@@ -40,5 +41,25 @@ def update_profile_service(
 
     return current_user
     
-def update_password(current_user:User , user_data:ChangePasswordRequest , db: Session):
-    pass
+def change_password_service(current_user:User , password_data:ChangePasswordRequest , db: Session):
+    if not password_hash.verify(
+        password_data.current_password , current_user.password_hash
+    ):
+        raise HTTPException (
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Current password is incorrect"
+        )
+
+    if password_hash.verify(
+        password_data.new_password , current_user.password_hash
+    ):
+        raise HTTPException(
+            status_code= status.HTTP_400_BAD_REQUEST,
+            detail="New password must be different from current password"
+        )
+    current_user.password_hash = password_hash.hash(
+        password_data.new_password
+    )
+
+    db.commit()
+    return {"message":"Password changed successfully"}
