@@ -21,7 +21,7 @@ def update_profile(
     user = update_profile_service(user_data=user_data , current_user=current_user,db=db)
     return user
 
-@router.patch("/chage-password")
+@router.patch("/change-password")
 def change_password(
     password_data : ChangePasswordRequest,
     current_user : User = Depends(get_current_user),

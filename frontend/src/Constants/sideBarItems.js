@@ -5,6 +5,7 @@ import {
   RiMessage3Fill,
   RiBriefcase4Fill,
   RiTicket2Fill,
+  RiUser2Fill,
 } from "react-icons/ri";
 
 export const adminSidebarItems = [
@@ -28,6 +29,11 @@ export const adminSidebarItems = [
     path: "dashboard/inquiries",
     icon: RiMessage3Fill,
   },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: RiUser2Fill,
+  },
 ];
 
 export const staffSidebarItems = [
@@ -46,6 +52,11 @@ export const staffSidebarItems = [
     path: "/staff/inquiries",
     icon: RiMessage3Fill,
   },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: RiUser2Fill,
+  },
 ];
 
 export const userSidebarItems = [
@@ -63,6 +74,11 @@ export const userSidebarItems = [
     label: "Make Inquiry",
     path: "/inquiry",
     icon: RiMessage3Fill,
+  },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: RiUser2Fill,
   },
 ];
 

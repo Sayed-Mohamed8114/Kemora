@@ -12,6 +12,7 @@ import AdminDashboard from "@/Pages/AdminDashboard/AdminDashboard";
 import ToursManagement from "@/Pages/ToursManagement/ToursManagement";
 import RoleRoute from "./RoleRoute";
 import ErrorPage from "@/Pages/404ErrorPage/404Page";
+import UpdateProfilePage from "@/Pages/Settings/UpdateProfilePage";
 
 export default function AppRouter() {
   return (
@@ -27,6 +28,7 @@ export default function AppRouter() {
       {/* Authenticated users */}
       <Route element={<ProtectedRoute />}>
         <Route element={<Dashboard />}>
+          <Route path="/profile" element={<UpdateProfilePage />} />
 
           {/* Admin */}
           <Route
@@ -120,7 +122,6 @@ export default function AppRouter() {
               </RoleRoute>
             }
           />
-
         </Route>
       </Route>
 

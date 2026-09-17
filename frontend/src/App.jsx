@@ -16,10 +16,10 @@ function App() {
           toastOptions={{
             classNames: {
               toast: "bg-dark-surface! border-dark-border! text-dark-text!",
-              title: "text-dark-text!",
-              description: "text-dark-muted!",
-              success: "bg-dark-surface! border-green-500! text-green-400!",
-              error: "bg-dark-surface! border-red-500! text-red-400!",
+              title: "text-black! ",
+              description: "text-black!",
+              success: "bg-light-surface! border-green-500! text-green-400!",
+              error: "bg-light-surface!  border-red-500!  text-red-400!",
             },
           }}
         />

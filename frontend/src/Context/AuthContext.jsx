@@ -33,6 +33,10 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("access_token");
     localStorage.removeItem("user");
   };
+
+  const updateUser = (updatedProfile) => {
+    setUser(updatedProfile);
+  };
   const value = {
     user,
     token,
@@ -40,6 +44,7 @@ export function AuthProvider({ children }) {
     login,
     logout,
     isAuthenticated: !!token,
+    updateUser,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
