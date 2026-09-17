@@ -1,5 +1,5 @@
 from pydantic import BaseModel,Field ,EmailStr , ConfigDict
-from app.models.user import UserRole
+from app.models.user import UserRole , UserGender
 
 class UserResponse(BaseModel):
     id:int 
@@ -7,6 +7,8 @@ class UserResponse(BaseModel):
     email:EmailStr
     role:UserRole
     is_active : bool
+    gender:UserGender 
+    phone:str
     model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(BaseModel):
@@ -43,7 +45,8 @@ class CustomerResponse(BaseModel):
 class UserUpdate(BaseModel):
     name:str | None  = Field(default=None , min_length=5 , max_length=50)
     email:EmailStr | None =None
-    
+    gender: UserGender | None=None 
+    phone:str | None=None  
 
 class ChangePasswordRequest(BaseModel):
     current_password:str 

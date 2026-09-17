@@ -29,6 +29,12 @@ def update_profile_service(
     if user_data.name is not None:
         current_user.name = user_data.name
 
+    if user_data.phone is not None :
+        current_user.phone = user_data.phone 
+
+    if user_data.gender is not None :
+        current_user.gender = user_data.gender
+
     db.commit()
     db.refresh(current_user)
 

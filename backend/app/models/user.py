@@ -56,7 +56,7 @@ class User(Base):
         nullable=False
     )
 
-    gender : Mapped[UserGender|None] = mapped_column(
+    gender : Mapped[UserGender | None] = mapped_column(
         SQLenum(
             UserGender,
             values_callable = lambda enum_class:[
@@ -66,8 +66,8 @@ class User(Base):
         nullable=True
     )
 
-    phone : Mapped[str|None] = mapped_column(
-        String(255) , nullable=True
+    phone : Mapped[str | None] = mapped_column(
+        String(20) , nullable=True
     )
 
     is_active: Mapped[bool] = mapped_column(
