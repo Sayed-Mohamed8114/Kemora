@@ -17,6 +17,10 @@ class UserRole(str, Enum):
     STAFF = "staff"
     CUSTOMER = "customer"
 
+class UserGender(str , Enum):
+    MALE="male"
+    FEMALE="female"
+
 
 class User(Base):
     __tablename__ = "users"
@@ -50,6 +54,20 @@ class User(Base):
             ]
         ),
         nullable=False
+    )
+
+    gender : Mapped[UserGender|None] = mapped_column(
+        SQLenum(
+            UserGender,
+            values_callable = lambda enum_class:[
+                gender.value for gender in enum_class 
+            ]
+        ) , 
+        nullable=True
+    )
+
+    phone : Mapped[str|None] = mapped_column(
+        String(255) , nullable=True
     )
 
     is_active: Mapped[bool] = mapped_column(

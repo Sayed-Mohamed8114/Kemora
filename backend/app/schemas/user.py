@@ -43,6 +43,7 @@ class CustomerResponse(BaseModel):
 class UserUpdate(BaseModel):
     name:str | None  = Field(default=None , min_length=5 , max_length=50)
     email:EmailStr | None =None
+    
 
 class ChangePasswordRequest(BaseModel):
     current_password:str 
