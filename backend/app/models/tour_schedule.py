@@ -2,10 +2,15 @@ from app.models.base import Base
 from sqlalchemy.orm import Mapped , mapped_column   , relationship 
 from datetime import datetime  , date , time
 from sqlalchemy import DateTime , Date, Time , ForeignKey, Enum as SQLenum
-from app.models.tour import Tour
 
 from enum import Enum
-from app.models.booking import Booking
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from app.models.tour import Tour
+    from app.models.booking import Booking
+
+
 
 class ScheduleStatus(str,Enum):
     AVAILABLE= "available"
@@ -15,7 +20,7 @@ class ScheduleStatus(str,Enum):
 
 
 class TourSchedule(Base):
-    __tablename__ = "tour_schedule"
+    __tablename__ = "tour_schedules"
     id:Mapped[int] = mapped_column(primary_key=True)
     start_date:Mapped[date] = mapped_column(Date,nullable=False)
     start_time:Mapped[time] = mapped_column(Time , nullable=False)
@@ -37,6 +42,7 @@ class TourSchedule(Base):
             nullable=False
         ) 
     tour: Mapped["Tour"] = relationship(
+        "Tour",
         back_populates="tour_schedule" 
     )
 
@@ -46,6 +52,7 @@ class TourSchedule(Base):
     )
 
     bookings: Mapped[list["Booking"]] = relationship(
-    back_populates="tour_schedule"
+        "Booking",
+        back_populates="tour_schedule"
     )
     

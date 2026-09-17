@@ -40,4 +40,10 @@ class CustomerResponse(BaseModel):
     is_active:bool 
     model_config = ConfigDict(from_attributes=True)
 
+class UserUpdate(BaseModel):
+    name:str | None  = Field(default=None , min_length=5 , max_length=50)
+    email:EmailStr | None =None
 
+class ChangePasswordRequest(BaseModel):
+    current_password:str 
+    new_password:str = Field(min_length=8 , max_length=50)

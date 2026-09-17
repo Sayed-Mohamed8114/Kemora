@@ -11,9 +11,12 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base
-from app.models.user import User
-from app.models.tour_schedule import TourSchedule
-from app.models.booking import Booking
+
+from typing import TYPE_CHECKING 
+if TYPE_CHECKING :
+    from app.models.user import User
+    from app.models.tour_schedule import TourSchedule
+
 
 class TourStatus(str, Enum):
     DRAFT = "draft"
@@ -88,10 +91,12 @@ class Tour(Base):
     )
 
     creator: Mapped["User"] = relationship(
+        "User",
         back_populates="created_tours"
     )
 
     tour_schedule:Mapped[list["TourSchedule"]] = relationship(
+        "TourSchedule",
         back_populates="tour"
     )
 
