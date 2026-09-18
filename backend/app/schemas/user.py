@@ -7,8 +7,8 @@ class UserResponse(BaseModel):
     email:EmailStr
     role:UserRole
     is_active : bool
-    gender:UserGender 
-    phone:str
+    gender:UserGender | None=None
+    phone:str | None=None
     model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(BaseModel):
