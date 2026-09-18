@@ -108,39 +108,7 @@ export default function Footer() {
               Get inspiration and travel stories from Egypt.
             </p>
 
-            {/* Email */}
-            <div className="flex border-b border-dark-border/30 dark:border-light-border/30 pb-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="
-                  w-full
-                  bg-transparent
-                  outline-none
-                  font-manrope
-                  text-sm
-                  text-dark-border
-                  dark:text-light-border
-                  placeholder:text-dark-border/40
-                  dark:placeholder:text-light-border/40
-                "
-              />
-
-              <button
-                className="
-                  font-manrope
-                  text-sm
-                  font-semibold
-                  text-gold-dark
-                  dark:text-gold-light
-                  hover:translate-x-1
-                  transition-transform
-                  duration-300
-                "
-              >
-                →
-              </button>
-            </div>
+            
 
             {/* Socials */}
             <div className="flex items-center gap-5 mt-7">
