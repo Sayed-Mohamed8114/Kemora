@@ -9,6 +9,7 @@ from app.models.base import Base
 from app.core.config import settings 
 from app.models import User , Tour , tour_schedule , Booking 
 from app.models.contactInquery import ContactInquiry
+from app.models.servcies import Service
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

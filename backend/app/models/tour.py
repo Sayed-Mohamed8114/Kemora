@@ -17,12 +17,10 @@ if TYPE_CHECKING :
     from app.models.user import User
     from app.models.tour_schedule import TourSchedule
 
-
 class TourStatus(str, Enum):
     DRAFT = "draft"
     PUBLISHED = "published"
     ARCHIVED = "archived"
-
 
 class Tour(Base):
     __tablename__ = "tours"
@@ -99,7 +97,6 @@ class Tour(Base):
         "TourSchedule",
         back_populates="tour"
     )
-
 
 '''
 now the relation between user and tours is 

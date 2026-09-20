@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.tour import Tour
     from app.models.booking import Booking
+    from app.models.servcies import Service
 
 
 class UserRole(str, Enum):
@@ -95,4 +96,9 @@ class User(Base):
 
     bookings: Mapped[list["Booking"]] = relationship(
     back_populates="customer"
+    )
+
+    services : Mapped[list["Service"]] = relationship(
+        "Service" , 
+        back_populates="creator"
     )
