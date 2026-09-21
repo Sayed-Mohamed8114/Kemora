@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers.auth import router as auth_router
 from app.routers.staff_management import router as staff_management_router
 from app.routers.profile_update import router as profile_router
+from app.routers.services import router as services_router
 
 app = FastAPI()
 
@@ -64,3 +65,4 @@ app.include_router(auth_router)
 app.include_router(staff_management_router)
 app.include_router(profile_router)
 app.include_router(contact_router)
+app.include_router(services_router)
