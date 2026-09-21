@@ -13,6 +13,7 @@ import ToursManagement from "@/Pages/ToursManagement/ToursManagement";
 import RoleRoute from "./RoleRoute";
 import ErrorPage from "@/Pages/404ErrorPage/404Page";
 import UpdateProfilePage from "@/Pages/Settings/UpdateProfilePage";
+import ServicesManagementPage from "@/Pages/ServicesManagementPage/ServicesManagementPage";
 
 export default function AppRouter() {
   return (
@@ -36,6 +37,14 @@ export default function AppRouter() {
             element={
               <RoleRoute allowedRoles={["super_admin"]}>
                 <AdminDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="dashboard/services"
+            element={
+              <RoleRoute allowedRoles={["super_admin"]}>
+                <ServicesManagementPage />
               </RoleRoute>
             }
           />

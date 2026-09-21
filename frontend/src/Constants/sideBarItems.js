@@ -6,6 +6,7 @@ import {
   RiBriefcase4Fill,
   RiTicket2Fill,
   RiUser2Fill,
+  RiServiceFill,
 } from "react-icons/ri";
 
 export const adminSidebarItems = [
@@ -23,6 +24,11 @@ export const adminSidebarItems = [
     label: "Tours Management",
     path: "dashboard/tours",
     icon: RiMapPin2Fill,
+  },
+  {
+    label: "Services Management",
+    path: "/dashboard/services",
+    icon: RiServiceFill,
   },
   {
     label: "Customer Inquiries",
