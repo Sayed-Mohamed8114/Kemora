@@ -1,17 +1,65 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
+import ServicesForm from "@/Components/Forms/ServicesForm";
 import ServiceCard from "@/Components/UI/ServiceCard";
+import { deleteService, getAllServices } from "@/Services/Services";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function ServicesManagementPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
-  const getServices = async () => {
-    
+  const [showAddService, setShowAddService] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  // get all services
+  const getallServices = async () => {
+    try {
+      const data = await getAllServices();
+      setServices(data);
+    } catch (error) {
+      toast.error(error?.response?.data?.detail || "something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
-  const handleDelete = async () => {};
-  const handleEdit = async () => {};
-  const handleAdd = async () => {};
+
+  // delete service
+  const handleDelete = async (serviceId) => {
+    try {
+      await deleteService(serviceId);
+      toast.success("Deleted Successfully");
+      await getallServices();
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.detail || "failed to delete this service",
+      );
+    }
+  };
+
+  // open form to add new service
+  const handleAdd = () => {
+    setSelectedService(null);
+    setShowAddService(true);
+  };
+
+  // open form to edit service
+  const handleEdit = (service) => {
+    setSelectedService(service);
+    setShowAddService(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowAddService(false);
+    setSelectedService(null);
+  };
+
+  const handleServiceFormSuccess = async () => {
+    await getallServices();
+    handleCloseForm();
+  };
+
+  useEffect(() => {
+    getallServices();
+  }, []);
   return (
     <main
       className="
@@ -73,11 +121,11 @@ export default function ServicesManagementPage() {
               xl:grid-cols-3
             "
           >
-            {services.map((user) => (
+            {services.map((service) => (
               <ServiceCard
-                key={user.id}
-                staff={user}
-                ondelete={handleDelete}
+                key={service.id}
+                service={service}
+                onDelete={handleDelete}
                 onEdit={handleEdit}
               />
             ))}
@@ -113,6 +161,41 @@ export default function ServicesManagementPage() {
       >
         <span>Add Services</span>
       </button>
+      {showAddService && (
+        <div
+          className="
+            fixed inset-0 z-1000
+            flex items-center justify-center
+            bg-black/50
+            p-4
+            backdrop-blur-sm
+          "
+          onClick={handleCloseForm}
+        >
+          <div
+            className="
+              max-h-[90vh]
+              w-full
+              max-w-lg
+              overflow-y-auto
+              rounded-2xl
+              border border-slate-200
+              bg-white
+              p-6
+              shadow-2xl
+              dark:border-white/10
+              dark:bg-[#171717]
+            "
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ServicesForm
+              service={selectedService}
+              onCLose={handleCloseForm}
+              onSuccess={handleServiceFormSuccess}
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
