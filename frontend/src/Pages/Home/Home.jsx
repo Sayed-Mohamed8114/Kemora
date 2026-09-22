@@ -3,6 +3,7 @@ import Destinations from "@/Components/Home/Destination";
 import Explore from "@/Components/Home/Explore";
 import Guides from "@/Components/Home/Guides";
 import Hero from "@/Components/Home/Hero";
+import Services from "@/Components/Home/Services";
 import Tours from "@/Components/Home/Tours";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <Explore />
       <Tours />
       <Guides />
+      <Services />
       <Destinations />
       <About />
     </div>
