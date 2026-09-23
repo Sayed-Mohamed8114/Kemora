@@ -59,3 +59,8 @@ class Service(Base):
         back_populates="services",
         foreign_keys=[created_by]
     )
+
+    service_requests = relationship(
+        "RequestService" , 
+        back_populates="service"
+    )

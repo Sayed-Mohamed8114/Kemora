@@ -102,3 +102,17 @@ class User(Base):
         "Service" , 
         back_populates="creator"
     )
+
+    assigned_requests = relationship(
+        "RequestService"  ,
+        foreign_keys="RequestService.assigned_staff_id",
+        back_populates="assigned_staff"
+    )
+
+    customer_requests = relationship(
+        "RequestService",
+        foreign_keys="RequestService.customer_id",
+        back_populates="customer"
+    )
+
+
