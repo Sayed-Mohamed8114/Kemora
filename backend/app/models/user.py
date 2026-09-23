@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.tour import Tour
     from app.models.booking import Booking
-    from app.models.servcies import Service
+    from app.models.services import Service
 
 
 class UserRole(str, Enum):

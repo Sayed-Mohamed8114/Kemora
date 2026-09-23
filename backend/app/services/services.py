@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.servcies import Service
+from app.models.services import Service
 from app.models.user import User
 from app.schemas.services import CreateService, ServiceUpdate
 

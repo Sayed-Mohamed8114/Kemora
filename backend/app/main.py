@@ -1,12 +1,15 @@
 from fastapi import FastAPI ,HTTPException ,Request
-from app.routers.contact import router as contact_router
 from fastapi.responses import JSONResponse 
 from fastapi.exceptions import RequestValidationError 
 from fastapi.middleware.cors import CORSMiddleware
+
+# routers
 from app.routers.auth import router as auth_router
 from app.routers.staff_management import router as staff_management_router
 from app.routers.profile_update import router as profile_router
 from app.routers.services import router as services_router
+from app.routers.contact import router as contact_router
+
 
 app = FastAPI()
 
