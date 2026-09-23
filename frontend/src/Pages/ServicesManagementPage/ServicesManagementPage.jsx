@@ -133,7 +133,6 @@ export default function ServicesManagementPage() {
         )}
       </div>
 
-      {/* Add Staff Button */}
       <button
         onClick={handleAdd}
         className="
