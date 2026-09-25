@@ -14,6 +14,7 @@ import RoleRoute from "./RoleRoute";
 import ErrorPage from "@/Pages/404ErrorPage/404Page";
 import UpdateProfilePage from "@/Pages/Settings/UpdateProfilePage";
 import ServicesManagementPage from "@/Pages/ServicesManagementPage/ServicesManagementPage";
+import RequestServicePage from "@/Pages/RequestServicePage/RequestServicePage";
 
 export default function AppRouter() {
   return (
@@ -45,6 +46,15 @@ export default function AppRouter() {
             element={
               <RoleRoute allowedRoles={["super_admin"]}>
                 <ServicesManagementPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="dashboard/servicesRequests"
+            element={
+              <RoleRoute allowedRoles={["super_admin"]}>
+                <RequestServicePage />
               </RoleRoute>
             }
           />

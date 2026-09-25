@@ -9,6 +9,7 @@ from app.routers.staff_management import router as staff_management_router
 from app.routers.profile_update import router as profile_router
 from app.routers.services import router as services_router
 from app.routers.contact import router as contact_router
+from app.routers.request_services import router as request_service_router
 
 
 app = FastAPI()
@@ -69,3 +70,4 @@ app.include_router(staff_management_router)
 app.include_router(profile_router)
 app.include_router(contact_router)
 app.include_router(services_router)
+app.include_router(request_service_router)

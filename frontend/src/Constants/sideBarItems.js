@@ -7,6 +7,7 @@ import {
   RiTicket2Fill,
   RiUser2Fill,
   RiServiceFill,
+  RiServiceBellLine,
 } from "react-icons/ri";
 
 export const adminSidebarItems = [
@@ -29,6 +30,11 @@ export const adminSidebarItems = [
     label: "Services Management",
     path: "/dashboard/services",
     icon: RiServiceFill,
+  },
+  {
+    label: "Services Requests",
+    path: "/dashboard/servicesRequests",
+    icon: RiServiceBellLine,
   },
   {
     label: "Customer Inquiries",
