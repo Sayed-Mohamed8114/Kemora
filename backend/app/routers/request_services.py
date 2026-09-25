@@ -15,7 +15,7 @@ from app.schemas.request_service import (
 
 from app.services.request_services import (
     request_service_service,
-    get_all_service_requests_service,
+    get_all_services_requests_service,
     get_service_request_by_id_service,
     approve_request_service,
     reject_request_service,
@@ -60,7 +60,7 @@ def get_all_services_requests(
     db: Session = Depends(get_db),
     current_user=Depends(is_super_admin)
 ):
-    return get_all_service_requests_service(
+    return get_all_services_requests_service(
         db=db
     )
 

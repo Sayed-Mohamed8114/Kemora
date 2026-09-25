@@ -65,6 +65,11 @@ export const staffSidebarItems = [
     icon: RiMessage3Fill,
   },
   {
+    label: "services Requests",
+    path: "/staff/requests",
+    icon: RiServiceFill,
+  },
+  {
     label: "Profile",
     path: "/profile",
     icon: RiUser2Fill,
@@ -86,6 +91,11 @@ export const userSidebarItems = [
     label: "Make Inquiry",
     path: "/inquiry",
     icon: RiMessage3Fill,
+  },
+  {
+    label: "Services",
+    path: "/services",
+    icon: RiServiceFill,
   },
   {
     label: "Profile",

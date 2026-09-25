@@ -11,8 +11,11 @@ class ServiceRequestResponse(BaseModel):
 
     id:int 
     service_id:int 
+    service_name:str
     customer_id:int
+    customer_name:str
     assigned_staff_id:int | None = None
+    staff_name:str
     note:str | None
     status:ServiceRequestStatus
     requested_at: datetime
