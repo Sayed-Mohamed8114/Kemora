@@ -1,6 +1,9 @@
 from app.models.user import User, UserRole
 from app.models.services import Service
 from app.models.request_service import RequestService, ServiceRequestStatus
+from fastapi import HTTPException , status
+
+from datetime import datetime
 
 from app.schemas.request_service import ServiceRequestCreate
 
@@ -20,7 +23,10 @@ def request_service_service(
     ).first()
 
     if service is None:
-        return None
+        raise HTTPException(
+            status_code=404,
+            detail="Service not found or inactive"
+        )
 
     request = RequestService(
         service_id=data.service_id,
@@ -68,6 +74,7 @@ def approve_request_service(
         return None
 
     request.status = ServiceRequestStatus.APPROVED
+    request.approved_at = datetime.utcnow
 
     db.commit()
     db.refresh(request)
@@ -159,13 +166,22 @@ def start_request_service(
     ).first()
 
     if request is None:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Service request not found"
+        )
 
     if request.assigned_staff_id != staff_id:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not assigned to this request"
+        )
 
     if request.status != ServiceRequestStatus.APPROVED:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only approved requests can be started"
+        )
 
     request.status = ServiceRequestStatus.IN_PROGRESS
 
@@ -185,15 +201,25 @@ def complete_request_service(
     ).first()
 
     if request is None:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Service request not found"
+        )
 
     if request.assigned_staff_id != staff_id:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not assigned to this request"
+        )
 
     if request.status != ServiceRequestStatus.IN_PROGRESS:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only approved requests can be started"
+        )
 
     request.status = ServiceRequestStatus.COMPLETED
+    request.completed_at = datetime.utcnow
 
     db.commit()
     db.refresh(request)

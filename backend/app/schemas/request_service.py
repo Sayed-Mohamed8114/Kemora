@@ -3,7 +3,7 @@ from app.models.request_service import ServiceRequestStatus
 from datetime import datetime 
 
 class ServiceRequestCreate(BaseModel):
-    service_id:int 
+    service_id:int | None = None
     note:str | None = None
 
 class ServiceRequestResponse(BaseModel):
