@@ -31,6 +31,7 @@ def create_tour_service(db:Session , data:CreateTourRequest , current_user:User)
     db.add(tour)
     db.commit()
     db.refresh(tour)
+    return tour
     
 def get_all_tours_for_admin_service(db: Session):
     return db.query(Tour).all()
