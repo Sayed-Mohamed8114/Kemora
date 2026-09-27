@@ -61,4 +61,3 @@ def create_tour_schedule(
 
     return tour_schedule
     
-    
