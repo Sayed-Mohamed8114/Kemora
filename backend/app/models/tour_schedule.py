@@ -25,15 +25,18 @@ class TourSchedule(Base):
     start_date:Mapped[date] = mapped_column(Date,nullable=False)
     start_time:Mapped[time] = mapped_column(Time , nullable=False)
     capacity:Mapped[int] = mapped_column(nullable=False)
-    status:Mapped[ScheduleStatus] = mapped_column(SQLenum(ScheduleStatus , values_callable=lambda enum_class: [
-                    schedule.value for schedule in enum_class
-                ]) , nullable=False)
+    status:Mapped[ScheduleStatus] = mapped_column(SQLenum(ScheduleStatus ,
+        values_callable=lambda enum_class: [
+        schedule.value for schedule in enum_class]), 
+        nullable=False , 
+        default=ScheduleStatus.AVAILABLE
+    )
     
     created_at: Mapped[datetime] = mapped_column(
             DateTime,
             default=datetime.utcnow,
             nullable=False
-        )
+    )
     
     updated_at: Mapped[datetime] = mapped_column(
             DateTime,
@@ -43,7 +46,7 @@ class TourSchedule(Base):
         ) 
     tour: Mapped["Tour"] = relationship(
         "Tour",
-        back_populates="tour_schedule" 
+        back_populates="tour_schedules" 
     )
 
     tour_id : Mapped[int] = mapped_column(

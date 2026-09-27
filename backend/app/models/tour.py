@@ -93,7 +93,7 @@ class Tour(Base):
         back_populates="created_tours"
     )
 
-    tour_schedule:Mapped[list["TourSchedule"]] = relationship(
+    tour_schedules:Mapped[list["TourSchedule"]] = relationship(
         "TourSchedule",
         back_populates="tour"
     )
