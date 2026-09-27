@@ -44,6 +44,7 @@ class TourSchedule(Base):
             onupdate=datetime.utcnow,
             nullable=False
         ) 
+    
     tour: Mapped["Tour"] = relationship(
         "Tour",
         back_populates="tour_schedules" 
