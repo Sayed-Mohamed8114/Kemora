@@ -64,9 +64,6 @@ def tours_for_customers_service(db: Session):
 
     return tours
 
-
-
-
 def get_tour_by_id_service(db: Session , tour_id:int):
     tour = db.query(Tour).filter(
         Tour.id == tour_id
@@ -128,6 +125,7 @@ def update_tour_service(
     db.refresh(tour)
 
     return tour
+
 def change_tour_status_service(
     db: Session,
     tour_id: int,
