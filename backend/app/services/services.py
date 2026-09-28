@@ -1,11 +1,43 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
+
 from app.models.services import Service
-from app.models.user import User
+from app.models.user import User 
 from app.schemas.services import CreateService, ServiceUpdate
 
+from decimal import Decimal 
 
-def get_all_services_service(db: Session):
-    return db.query(Service).all()
+from fastapi import Query 
+
+def get_all_services_service(
+    db: Session,
+    search: str | None = None,
+    min_price: Decimal | None = None,
+    max_price: Decimal | None = None
+):
+    query = db.query(Service).filter(
+        Service.is_active == True
+    )
+
+    if search:
+        query = query.filter(
+            or_(
+                Service.name.ilike(f"%{search}%"),
+                Service.description.ilike(f"%{search}%")
+            )
+        )
+
+    if min_price is not None:
+        query = query.filter(
+            Service.price >= min_price
+        )
+
+    if max_price is not None:
+        query = query.filter(
+            Service.price <= max_price
+        )
+
+    return query.all()
 
 
 def create_service_service(

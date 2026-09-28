@@ -1,10 +1,13 @@
-from fastapi import APIRouter , status  , Depends
+from fastapi import APIRouter , status  , Depends , Query
+
 from app.schemas.services import ServiceResponse , CreateService , ServiceUpdate
 from app.services.services import create_service_service ,edit_service_service , delete_service_service , get_all_services_service , get_service_by_name_service 
 from app.helpers.require_super_admin import is_super_admin 
-from app.helpers.get_current_user import get_current_user
 from app.database.db import get_db 
+
 from sqlalchemy.orm import Session
+
+from decimal import Decimal
 
 router = APIRouter(
     prefix="/services",
@@ -18,9 +21,18 @@ def create_service(data:CreateService , db:Session = Depends(get_db),current_use
 
 @router.get("/" , response_model=list[ServiceResponse] , status_code=status.HTTP_200_OK)
 def get_all_services(
+    search: str | None = Query(default=None),
+    min_price: Decimal | None = Query(default=None, ge=0),
+    max_price: Decimal | None = Query(default=None, ge=0),
+    is_active: bool | None = Query(default=None),
     db: Session = Depends(get_db)
 ):
-    return get_all_services_service(db=db)
+    return get_all_services_service(
+        db=db, 
+        search= search,
+        min_price=min_price,
+        max_price=max_price , 
+    )
 
 @router.delete("/{service_id}",status_code=status.HTTP_200_OK)
 def delete_service(
