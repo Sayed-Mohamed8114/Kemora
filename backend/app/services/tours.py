@@ -1,9 +1,9 @@
 from app.models.tour import Tour , TourStatus 
 from app.models.user import User  , UserRole
-
 from app.schemas.tours import CreateTourRequest , UpdateTourRequest , ChangeTourStatusRequest
+from app.services.file import save_upload_file
 
-from fastapi import status , HTTPException  
+from fastapi import status , HTTPException  , UploadFile 
 
 from sqlalchemy.orm import Session
 
@@ -168,3 +168,44 @@ def change_tour_status_service(
     db.refresh(tour)
 
     return tour
+
+async def upload_tour_cover_service(
+        db: Session ,
+        current_user : User ,
+        file:UploadFile,
+        tour_id:int
+):
+    if current_user is None :
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED ,
+            detail= "Please login first"
+        )
+    if current_user.role not in [UserRole.STAFF , UserRole.SUPER_ADMIN]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail = "You are not allowed to add cover to tour"
+        )
+    tour = db.query(Tour).filter(
+        Tour.id == tour_id
+    ).first()
+
+    if tour is None :
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Tour not found"
+        )
+
+    if current_user.role is UserRole.STAFF :
+        if tour.created_by != current_user.id :
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Staff can only upload covers for their own tours"
+            )
+    image_url  = await save_upload_file(file)
+    tour.image_url = image_url 
+
+    db.commit()
+    db.refresh(tour)
+
+    return tour
+    
