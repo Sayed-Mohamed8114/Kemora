@@ -40,7 +40,7 @@ async def save_upload_file(file:UploadFile):
     with file_path.open("wb") as buffer :
         buffer.write(content)
 
-    return f"uploads/tours/{filename}"
+    return f"/uploads/tours/{filename}"
     
 
 """

@@ -2,6 +2,7 @@ from fastapi import FastAPI ,HTTPException ,Request
 from fastapi.responses import JSONResponse 
 from fastapi.exceptions import RequestValidationError 
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 # routers
 from app.routers.auth import router as auth_router
@@ -65,6 +66,15 @@ async def global_exception_handler(request:Request , exc:Exception):
             "message" :"something went wrong on the server."
         }
     )
+
+# to make react and the browser able to reach the image we need to make it static files
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads"
+)
+
+
 
 app.include_router(auth_router)
 app.include_router(staff_management_router)
