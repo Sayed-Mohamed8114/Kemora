@@ -36,6 +36,7 @@ class TourResponse(BaseModel):
     created_at:datetime
     updated_at:datetime 
     creator:UserResponse
+    image_url:str | None
 
 class ChangeTourStatusRequest(BaseModel):
     status: TourStatus
