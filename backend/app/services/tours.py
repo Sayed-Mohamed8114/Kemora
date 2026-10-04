@@ -208,4 +208,42 @@ async def upload_tour_cover_service(
     db.refresh(tour)
 
     return tour
-    
+
+def delete_tour_service(
+    db: Session,
+    current_user: User,
+    tour_id: int
+):
+    if current_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Please login first"
+        )
+
+    if current_user.role not in [UserRole.STAFF, UserRole.SUPER_ADMIN]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not allowed to delete tours"
+        )
+
+    tour = db.query(Tour).filter(
+        Tour.id == tour_id
+    ).first()
+
+    if tour is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Tour not found"
+        )
+
+    if current_user.role is UserRole.STAFF:
+        if tour.created_by != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Staff can only delete their own tours"
+            )
+
+    db.delete(tour)
+    db.commit()
+
+    return "Tour has been deleted successfully"

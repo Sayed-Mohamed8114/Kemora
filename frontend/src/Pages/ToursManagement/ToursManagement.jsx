@@ -1,6 +1,7 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
 import AddTourForm from "@/Components/Forms/AddTourForm";
 import TourCard from "@/Components/UI/TourCard";
+import { useAuth } from "@/Context/AuthContext";
 import { useEffect, useState } from "react";
 
 export default function ToursManagement() {
@@ -8,6 +9,9 @@ export default function ToursManagement() {
   const [tours, setTours] = useState([]);
   const [selectedTour, setSelectedTour] = useState(null);
   const [showAddTour, setShowAddTour] = useState(false);
+  const { user } = useAuth();
+
+  const role = user.role;
 
   const handleDelete = async () => {};
 
@@ -121,7 +125,7 @@ export default function ToursManagement() {
       >
         <span>Add Tour</span>
       </button>
-       {showAddTour && (
+      {showAddTour && (
         <div
           className="
             fixed inset-0 z-1000

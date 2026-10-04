@@ -6,7 +6,7 @@ from app.schemas.tours import ChangeTourStatusRequest , TourResponse , CreateTou
 from app.database.db import get_db
 from app.helpers.get_current_user import get_current_user
 from app.helpers.require_super_admin import is_super_admin
-from app.services.tours import create_tour_service , upload_tour_cover_service , get_all_tours_by_me_service , get_tour_by_id_service , get_all_tours_for_admin_service , tours_for_customers_service , update_tour_service , change_tour_status_service
+from app.services.tours import create_tour_service , delete_tour_service , upload_tour_cover_service , get_all_tours_by_me_service , get_tour_by_id_service , get_all_tours_for_admin_service , tours_for_customers_service , update_tour_service , change_tour_status_service
 from app.models.user import User
 
 router = APIRouter(
@@ -130,3 +130,11 @@ async def upload_tour_cover(
 ):
     tour = await upload_tour_cover_service(db=db,current_user=current_user , file=file , tour_id=tour_id)
     return tour
+
+@router.delete("/{tour_id}" , status_code=status.HTTP_204_NO_CONTENT)
+def delete_tour(
+    tour_id:int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return delete_tour_service(db=db , current_user = current_user , tour_id=tour_id)

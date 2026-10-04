@@ -39,3 +39,8 @@ export const uploadTourCover = async (tour_id) => {
   const response = await api.post(`/tours/${tour_id}/cover`);
   return response.data;
 };
+
+export const deleteTour = async (tour_id) => {
+  const response = await api.delete(`/tours/${tour_id}`);
+  return response.data;
+};
