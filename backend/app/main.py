@@ -71,7 +71,7 @@ async def global_exception_handler(request:Request , exc:Exception):
 app.mount(
     "/uploads",
     StaticFiles(directory="uploads"),
-    name="uploads"
+    name="uploads",
 )
 
 

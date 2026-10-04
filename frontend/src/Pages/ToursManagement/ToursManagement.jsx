@@ -2,28 +2,100 @@ import SmallLoader from "@/Components/Common/SmallLoader";
 import AddTourForm from "@/Components/Forms/AddTourForm";
 import TourCard from "@/Components/UI/TourCard";
 import { useAuth } from "@/Context/AuthContext";
-import { useEffect, useState } from "react";
+import {
+  deleteTour,
+  getToursByStaff,
+  getToursForAdmin,
+  getToursForCustomers,
+} from "@/Services/tours";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ToursManagement() {
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [tours, setTours] = useState([]);
   const [selectedTour, setSelectedTour] = useState(null);
   const [showAddTour, setShowAddTour] = useState(false);
+
   const { user } = useAuth();
 
-  const role = user.role;
+  const role = user?.role;
 
-  const handleDelete = async () => {};
+  const canManageTours =
+    role === "staff" || role === "super_admin";
 
-  const handleEdit = async () => {};
+  const fetchTours = useCallback(async () => {
+    try {
+      setLoading(true);
 
-  const handleAdd = async () => {};
+      let data;
 
-  const handleCloseForm = async () => {};
+      if (role === "staff") {
+        data = await getToursByStaff();
+      } else if (role === "super_admin") {
+        data = await getToursForAdmin();
+      } else if (role === "customer") {
+        data = await getToursForCustomers();
+      } else {
+        data = [];
+      }
 
-  const handleFormSuccess = async () => {};
+      setTours(data || []);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.detail ||
+          "Failed to load tours",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [role]);
 
-  useEffect(() => {}, [tours]);
+  useEffect(() => {
+    if (role) {
+      fetchTours();
+    }
+  }, [role, fetchTours]);
+
+  const handleEdit = (tour) => {
+    setSelectedTour(tour);
+    setShowAddTour(true);
+  };
+
+  const handleAdd = () => {
+    setSelectedTour(null);
+    setShowAddTour(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowAddTour(false);
+    setSelectedTour(null);
+  };
+
+  const handleFormSuccess = async () => {
+    handleCloseForm();
+    await fetchTours();
+  };
+
+  const handleDelete = async (tourId) => {
+    try {
+      setLoading(true);
+
+      await deleteTour(tourId);
+
+      toast.success("Tour deleted successfully");
+
+      await fetchTours();
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.detail ||
+          "Failed to delete the tour",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main
       className="
@@ -37,6 +109,7 @@ export default function ToursManagement() {
       "
     >
       <div className="w-full">
+        {/* Header */}
         <div className="mb-8">
           <h1
             className="
@@ -51,11 +124,11 @@ export default function ToursManagement() {
           </h1>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Add and update kemora Tours.
+            Add and update Kemora tours.
           </p>
         </div>
 
-        {/* Staff Grid */}
+        {/* Tours Grid */}
         {loading ? (
           <SmallLoader />
         ) : tours.length === 0 ? (
@@ -71,7 +144,7 @@ export default function ToursManagement() {
             "
           >
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              No staff members found.
+              No tours found.
             </p>
           </div>
         ) : (
@@ -80,7 +153,6 @@ export default function ToursManagement() {
               grid
               grid-cols-1
               gap-5
-              lg:gap-5
               lg:grid-cols-2
               xl:grid-cols-3
             "
@@ -89,46 +161,51 @@ export default function ToursManagement() {
               <TourCard
                 key={tour.id}
                 tour={tour}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
+                onDelete={canManageTours ? handleDelete : undefined}
+                onEdit={canManageTours ? handleEdit : undefined}
               />
             ))}
           </div>
         )}
       </div>
 
-      {/* Add tour Button */}
-      <button
-        onClick={handleAdd}
-        className="
-          fixed bottom-3 right-3 z-50
-          flex items-center gap-2
-          rounded-lg
-          bg-gold-dark
-          px-4 py-2 md:px-5 md:py-3.5 md:text-base
-          text-sm
-          font-semibold text-white
-          shadow-lg shadow-gold-dark/25
-          transition-all duration-700
-          hover:scale-105
-          hover:bg-gold-light
-          hover:text-slate-900
-          hover:shadow-xl
-          active:scale-95
-          animate-bounce
-          dark:bg-gold-light
-          dark:text-slate-900
-          dark:shadow-gold-light/20
-          dark:hover:bg-gold-dark
-          dark:hover:text-white
-        "
-      >
-        <span>Add Tour</span>
-      </button>
+      {/* Add Tour Button */}
+      {canManageTours && (
+        <button
+          onClick={handleAdd}
+          className="
+            fixed bottom-3 right-3 z-50
+            flex items-center gap-2
+            rounded-lg
+            bg-gold-dark
+            px-4 py-2
+            text-sm
+            font-semibold text-white
+            shadow-lg shadow-gold-dark/25
+            transition-all duration-700
+            hover:scale-105
+            hover:bg-gold-light
+            hover:text-slate-900
+            hover:shadow-xl
+            active:scale-95
+            animate-bounce
+            md:px-5 md:py-3.5 md:text-base
+            dark:bg-gold-light
+            dark:text-slate-900
+            dark:shadow-gold-light/20
+            dark:hover:bg-gold-dark
+            dark:hover:text-white
+          "
+        >
+          <span>Add Tour</span>
+        </button>
+      )}
+
+      {/* Add / Edit Tour Modal */}
       {showAddTour && (
         <div
           className="
-            fixed inset-0 z-1000
+            fixed inset-0 z-999
             flex items-center justify-center
             bg-black/50
             p-4
@@ -153,7 +230,7 @@ export default function ToursManagement() {
             onClick={(e) => e.stopPropagation()}
           >
             <AddTourForm
-              staff={selectedTour}
+              tour={selectedTour}
               onClose={handleCloseForm}
               onSuccess={handleFormSuccess}
             />

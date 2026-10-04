@@ -35,8 +35,15 @@ export const getTourById = async (tour_id) => {
   return response.data;
 };
 
-export const uploadTourCover = async (tour_id) => {
-  const response = await api.post(`/tours/${tour_id}/cover`);
+export const uploadTourImage = async (tour_id, file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await api.post(`/tours/${tour_id}/cover`, formData, {
+    headers: {
+      "Content-Type": undefined,
+    },
+  });
   return response.data;
 };
 
