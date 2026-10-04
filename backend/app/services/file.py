@@ -37,6 +37,7 @@ async def save_upload_file(file:UploadFile):
 
     # now to save the file 
     file_path = UPLOAD_DIR / filename 
+    # the role of wb is to make the buffer able to write as a binary because the image is a binary 
     with file_path.open("wb") as buffer :
         buffer.write(content)
 

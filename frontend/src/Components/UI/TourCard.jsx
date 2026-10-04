@@ -1,4 +1,4 @@
-export default function TourCard({ tours }) {
+export default function TourCard({ tour , onDelete , onEdit }) {
   return (
     <div
       className="

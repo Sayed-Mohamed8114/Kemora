@@ -6,7 +6,7 @@ import SignUP from "@/Pages/SignUP/SignUP";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "@/Pages/Dashboard/Dashboard";
-import StaffMangamenetpage from "@/Pages/StaffMangementPafe/StaffMangamenetpage";
+import StaffMangamenetpage from "@/Pages/StaffMangementPage/StaffMangamenetpage";
 import CustomerInquiries from "@/Pages/CustomerInquiries/CustomerInquiries";
 import AdminDashboard from "@/Pages/AdminDashboard/AdminDashboard";
 import ToursManagement from "@/Pages/ToursManagement/ToursManagement";
