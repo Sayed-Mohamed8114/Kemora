@@ -3,7 +3,6 @@ import {
   RiTeamFill,
   RiMapPin2Fill,
   RiMessage3Fill,
-  RiBriefcase4Fill,
   RiTicket2Fill,
   RiUser2Fill,
   RiServiceFill,
@@ -50,15 +49,11 @@ export const adminSidebarItems = [
 
 export const staffSidebarItems = [
   {
-    label: "Tours",
+    label: "Tours by me",
     path: "/staff/tours",
     icon: RiMapPin2Fill,
   },
-  {
-    label: "Tours by Me",
-    path: "/staff/my-tours",
-    icon: RiBriefcase4Fill,
-  },
+
   {
     label: "Customer Inquiries",
     path: "/staff/inquiries",

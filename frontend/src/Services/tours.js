@@ -20,13 +20,16 @@ export const getToursForCustomers = async () => {
   return response.data;
 };
 
-export const changeTourStatus = async (tour_id) => {
-  const response = await api.patch(`/tours/${tour_id}/status`);
+export const changeTourStatus = async (tour_id, status) => {
+  const response = await api.patch(`/tours/${tour_id}/status`, {
+    status,
+  });
+
   return response.data;
 };
 
-export const updateTour = async (tour_id) => {
-  const response = await api.patch(`/tours/${tour_id}`);
+export const updateTour = async (tour_id, payload) => {
+  const response = await api.patch(`/tours/${tour_id}`, payload);
   return response.data;
 };
 

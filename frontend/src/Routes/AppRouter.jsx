@@ -97,15 +97,6 @@ export default function AppRouter() {
           />
 
           <Route
-            path="staff/my-tours"
-            element={
-              <RoleRoute allowedRoles={["staff"]}>
-                <div>Tours By Me</div>
-              </RoleRoute>
-            }
-          />
-
-          <Route
             path="staff/inquiries"
             element={
               <RoleRoute allowedRoles={["staff"]}>

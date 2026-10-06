@@ -10,7 +10,12 @@ import {
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { addTour, updateTour, uploadTourImage } from "@/Services/tours";
+import {
+  addTour,
+  updateTour,
+  changeTourStatus,
+  uploadTourImage,
+} from "@/Services/tours";
 
 const TOUR_STATUSES = [
   {
@@ -135,40 +140,60 @@ export default function AddTourForm({ tour, onClose, onSuccess }) {
     try {
       setLoading(true);
 
+      /*
+       * Status has its own API endpoint.
+       * Therefore, don't send status inside updateTour().
+       */
       const payload = {
         title,
         description,
         location,
         duration,
         price,
-        status: tourData.status,
       };
+
+      console.log("Tour payload:", payload);
+      console.log("Selected status:", tourData.status);
 
       let savedTour;
 
       if (isEditMode) {
+        // Update the normal tour information.
         savedTour = await updateTour(tour.id, payload);
+
+        /*
+         * Change the status separately only if it actually changed.
+         */
+        if (tourData.status !== tour.status) {
+          console.log(
+            `Changing status from ${tour.status} to ${tourData.status}`,
+          );
+
+          await changeTourStatus(tour.id, tourData.status);
+        }
       } else {
+        /*
+         * For a new tour, create it first.
+         */
         savedTour = await addTour(payload);
+
+        /*
+         * Then change its status if the user selected
+         * something other than the default draft.
+         */
+        if (tourData.status !== "draft" && savedTour?.id) {
+          await changeTourStatus(savedTour.id, tourData.status);
+        }
       }
 
-      // The tour must exist first because the image
-      // upload endpoint needs the tour ID.
+      /*
+       * The tour must exist first because the image
+       * upload endpoint needs the tour ID.
+       */
       const tourId = isEditMode ? tour.id : savedTour?.id;
 
-      console.log("=== IMAGE UPLOAD DEBUG ===");
-      console.log("savedTour:", savedTour);
-      console.log("tourId:", tourId);
-      console.log("tourImage:", tourImage);
-      console.log("image name:", tourImage?.name);
-      console.log("image type:", tourImage?.type);
-
       if (tourImage && tourId) {
-        console.log("Uploading image now...");
-
         await uploadTourImage(tourId, tourImage);
-
-        console.log("Image uploaded successfully");
       }
 
       toast.success(
@@ -177,6 +202,8 @@ export default function AddTourForm({ tour, onClose, onSuccess }) {
 
       await onSuccess?.();
     } catch (error) {
+      console.error("Tour submission error:", error);
+
       const message =
         error?.response?.data?.detail ||
         (isEditMode ? "Failed to update tour" : "Failed to add a new tour");
@@ -580,7 +607,6 @@ export default function AddTourForm({ tour, onClose, onSuccess }) {
             ))}
           </div>
         </div>
-
         <div>
           <label
             htmlFor="tour-image"
