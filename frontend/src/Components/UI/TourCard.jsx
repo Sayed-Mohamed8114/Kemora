@@ -1,6 +1,11 @@
+import { useAuth } from "@/Context/AuthContext";
 import { Clock3, MapPin, Pencil, Trash2 } from "lucide-react";
 
 export default function TourCard({ tour, onDelete, onEdit }) {
+  const { user } = useAuth();
+
+const canSeeCreator = user?.role === "staff" || user?.role === "super_admin";
+
   const getStatusStyle = () => {
     switch (tour.status) {
       case "published":
@@ -23,7 +28,8 @@ export default function TourCard({ tour, onDelete, onEdit }) {
         overflow-hidden
         flex flex-col
         w-full
-        h-125
+        h-auto 
+        max-h-125
         rounded-xl
         border
         border-black/10
@@ -102,23 +108,30 @@ export default function TourCard({ tour, onDelete, onEdit }) {
         >
           {tour.description}
         </p>
-        <div className="flex items-center justify-between px-4 mt-5">
-          <span className="
-          font-cinzel text-bold 
-          ">Created by : {tour.creator.name}</span>
 
-          <span
-            className={`
+        {canSeeCreator && (
+          <div className="flex items-center justify-between px-4 mt-5">
+            <span
+              className="
+          font-cinzel text-bold 
+          "
+            >
+              Created by : {tour.creator.name}
+            </span>
+
+            <span
+              className={`
             rounded-full
             px-3 py-1
             text-xs font-semibold
             capitalize
             ${getStatusStyle()}
           `}
-          >
-            {tour.status}
-          </span>
-        </div>
+            >
+              {tour.status}
+            </span>
+          </div>
+        )}
 
         {/* Bottom Info */}
         <div
