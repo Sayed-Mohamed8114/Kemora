@@ -14,3 +14,8 @@ export const deleteInquiry = async (inquiry_id) => {
   const response = await api.delete(`/api/contact-inquiries/${inquiry_id}`);
   return response.data;
 };
+
+export const inquiriesByMe = async () => {
+  const response = await api.get("/api/contact-inquiries/my_inquires");
+  return response.data;
+}

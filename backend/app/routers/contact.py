@@ -1,9 +1,12 @@
 from fastapi import APIRouter , Depends , status 
 from app.database.db import get_db 
 from app.schemas.contactInquires import ContactInquiryCreate,ContactInquiryCreateResponse , ContactInquiryResponse
-from app.services.contact import create_contact_inquires_service , get_all_contact_inquires_service,delete_contact_inquires_service
+from app.services.contact import create_contact_inquires_service , get_my_inquires_service ,get_all_contact_inquires_service,delete_contact_inquires_service
 from sqlalchemy.orm import Session
-from app.helpers.require_super_admin import is_super_admin
+from app.helpers.require_super_admin import is_super_admin , get_current_user
+
+
+from app.models.user import User
 
 router = APIRouter(
     prefix="/api/contact-inquiries",
@@ -41,4 +44,7 @@ def get_all_inquires(
 def delete_contact_inquiry(inquiry_id:int , current_user = Depends(is_super_admin),db: Session=Depends(get_db)):
     return delete_contact_inquires_service(db=db , inquiry_id=inquiry_id)
 
+@router.get("/my_inquires" , response_model=list[ContactInquiryResponse] , status_code=status.HTTP_200_OK) 
+def get_my_inquires( current_user:User = Depends(get_current_user) , db: Session = Depends(get_db)):
+    return get_my_inquires_service(db=db , current_user=current_user)
     

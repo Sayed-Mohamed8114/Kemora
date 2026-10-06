@@ -1,6 +1,13 @@
+import { useAuth } from "@/Context/AuthContext";
 import { Mail, UserRound, MessageSquare } from "lucide-react";
 
 export default function InqueryCard({ inquiry, onDelete }) {
+  const { user } = useAuth();
+  const role = user?.role;
+  const customer = role === "customer";
+
+  
+
   return (
     <article
       className="
@@ -159,10 +166,12 @@ export default function InqueryCard({ inquiry, onDelete }) {
           </p>
         </div>
 
-        <div className="mt-5 flex w-full items-center justify-start gap-5 px-2">
-          <button
-            onClick={() => onDelete(inquiry.id)}
-            className="
+        {!customer && (
+          <div className="mt-5 flex w-full items-center 
+          justify-start gap-5 px-2">
+            <button
+              onClick={() => onDelete(inquiry.id)}
+              className="
               flex w-[45%] cursor-pointer items-center justify-center gap-2
               rounded-md
               bg-red-700
@@ -173,10 +182,11 @@ export default function InqueryCard({ inquiry, onDelete }) {
               pointer-cursor
               hover:bg-red-500 hover:text-white
             "
-          >
-            Delete
-          </button>
-        </div>
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );

@@ -125,10 +125,10 @@ export default function AppRouter() {
           />
 
           <Route
-            path="inquiry"
+            path="/inquiries"
             element={
               <RoleRoute allowedRoles={["customer"]}>
-                <div>Make Inquiry</div>
+                <CustomerInquiries />
               </RoleRoute>
             }
           />

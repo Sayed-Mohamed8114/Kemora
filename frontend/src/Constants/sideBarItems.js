@@ -84,7 +84,7 @@ export const userSidebarItems = [
   },
   {
     label: "Make Inquiry",
-    path: "/inquiry",
+    path: "/inquiries",
     icon: RiMessage3Fill,
   },
   {

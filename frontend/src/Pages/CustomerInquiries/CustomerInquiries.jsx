@@ -1,6 +1,11 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
 import InqueryCard from "@/Components/UI/InqueryCard";
-import { deleteInquiry, getAllInquiries } from "@/Services/contact";
+import { useAuth } from "@/Context/AuthContext";
+import {
+  deleteInquiry,
+  getAllInquiries,
+  inquiriesByMe,
+} from "@/Services/contact";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -8,10 +13,22 @@ export default function CustomerInquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { user } = useAuth();
+  const role = user?.role;
+  const canManage = role === "super_admin" || role === "staff";
+
   const getInquiries = async () => {
     try {
-      const data = await getAllInquiries();
-      setInquiries(data);
+      setLoading(true);
+      let data;
+      if (role === "customer") {
+        data = await inquiriesByMe();
+      } else if (canManage) {
+        data = getAllInquiries();
+      } else {
+        data = [];
+      }
+      setInquiries(data || []);
     } catch (error) {
       toast.error(error?.response?.data?.detail || "Failed to load inquiries");
     } finally {
@@ -59,13 +76,18 @@ export default function CustomerInquiries() {
               sm:text-3xl
             "
           >
-            Inquiries by customers
+            {canManage ? "Inquiries by customers" : "Inquiries by you "}
           </h1>
-
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            See what customers see about your company to improve it and gain
-            more customers..
-          </p>
+          {canManage ? (
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              See what customers see about your company to improve it and gain
+              more customers..
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              See what you said to kemora management team
+            </p>
+          )}
         </div>
 
         {/* Staff Grid */}
