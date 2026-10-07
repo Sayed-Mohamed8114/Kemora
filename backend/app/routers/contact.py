@@ -36,9 +36,9 @@ def create_inquiry(
 @router.get("/",response_model=list[ContactInquiryResponse],status_code = status.HTTP_200_OK)
 def get_all_inquires(
     db: Session = Depends(get_db),
-    current_user = Depends(is_super_admin),
+    current_user : User = Depends(get_current_user)
 ):
-    return get_all_contact_inquires_service(db)
+    return get_all_contact_inquires_service(db , current_user=current_user)
 
 @router.delete("/{inquiry_id}" , response_model=ContactInquiryResponse , status_code=status.HTTP_200_OK)
 def delete_contact_inquiry(inquiry_id:int , current_user = Depends(is_super_admin),db: Session=Depends(get_db)):

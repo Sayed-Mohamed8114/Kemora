@@ -24,7 +24,7 @@ export default function CustomerInquiries() {
       if (role === "customer") {
         data = await inquiriesByMe();
       } else if (canManage) {
-        data = getAllInquiries();
+        data = await getAllInquiries();
       } else {
         data = [];
       }

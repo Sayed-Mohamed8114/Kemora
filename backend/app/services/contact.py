@@ -17,7 +17,19 @@ def create_contact_inquires_service(db:Session , inquiry:ContactInquiryCreate):
 
     return new_inquiry
 
-def get_all_contact_inquires_service(db: Session):
+def get_all_contact_inquires_service(db: Session , current_user :User):
+    if current_user is None :
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail= "please login first to access and manage inquiries"
+        )
+
+    if current_user.role == UserRole.CUSTOMER:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="you can see your own inquiries only"
+        )
+    
     return db.query(ContactInquiry).all()
 
 def delete_contact_inquires_service(db:Session,inquiry_id:int):

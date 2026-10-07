@@ -55,14 +55,14 @@ export const staffSidebarItems = [
   },
 
   {
-    label: "Customer Inquiries",
-    path: "/staff/inquiries",
-    icon: RiMessage3Fill,
-  },
-  {
     label: "services Requests",
     path: "/staff/requests",
     icon: RiServiceFill,
+  },
+  {
+    label: "Customer Inquiries",
+    path: "/staff/inquiries",
+    icon: RiMessage3Fill,
   },
   {
     label: "Profile",
@@ -82,15 +82,16 @@ export const userSidebarItems = [
     path: "/my-tours",
     icon: RiTicket2Fill,
   },
-  {
-    label: "Inquires",
-    path: "/inquiries",
-    icon: RiMessage3Fill,
-  },
+
   {
     label: "Services",
     path: "/services",
     icon: RiServiceFill,
+  },
+  {
+    label: "Inquires",
+    path: "/inquiries",
+    icon: RiMessage3Fill,
   },
   {
     label: "Profile",

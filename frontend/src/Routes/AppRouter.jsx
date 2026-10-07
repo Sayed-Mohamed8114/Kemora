@@ -125,6 +125,15 @@ export default function AppRouter() {
           />
 
           <Route
+            path="/services"
+            element={
+              <RoleRoute allowedRoles={["customer"]}>
+                <RequestServicePage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
             path="/inquiries"
             element={
               <RoleRoute allowedRoles={["customer"]}>
