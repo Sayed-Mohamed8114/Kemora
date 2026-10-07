@@ -64,6 +64,20 @@ def get_all_services_requests(
         db=db
     )
 
+@router.get(
+    "/staff/my",
+    status_code=status.HTTP_200_OK,
+    response_model=list[ServiceRequestResponse]
+)
+def get_my_assigned_requests(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    return get_assigned_requests_service(
+        db=db,
+        current_user=current_user
+    )
+
 
 @router.get(
     "/{request_id}",
@@ -132,19 +146,7 @@ def assign_request_to_staff(
 
 
 
-@router.get(
-    "/staff/my",
-    status_code=status.HTTP_200_OK,
-    response_model=list[ServiceRequestResponse]
-)
-def get_my_assigned_requests(
-    db: Session = Depends(get_db),
-    current_user=Depends(get_current_user)
-):
-    return get_assigned_requests_service(
-        db=db,
-        staff_id=current_user.id
-    )
+
 
 
 @router.patch(

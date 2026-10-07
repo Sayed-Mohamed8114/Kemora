@@ -9,15 +9,18 @@ class ServiceRequestCreate(BaseModel):
 class ServiceRequestResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id:int 
-    service_id:int 
-    service_name:str
-    customer_id:int
-    customer_name:str
-    assigned_staff_id:int | None = None
-    staff_name:str
-    note:str | None
-    status:ServiceRequestStatus
+    id: int
+    service_id: int
+    service_name: str
+
+    customer_id: int
+    customer_name: str
+
+    assigned_staff_id: int | None = None
+    staff_name: str | None = None
+
+    note: str | None
+    status: ServiceRequestStatus
     requested_at: datetime
     approved_at: datetime | None = None
     completed_at: datetime | None = None

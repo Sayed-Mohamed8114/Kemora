@@ -174,24 +174,56 @@ def assign_request_to_staff_service(
 
 
 # Staff
-
 def get_assigned_requests_service(
     db: Session,
-    staff_id: int
+    current_user: User
 ):
-    staff = db.query(User).filter(
-        User.id == staff_id,
-        User.role == UserRole.STAFF
-    ).first()
+    if current_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Please login first"
+        )
 
-    if staff is None:
-        return None
+    if current_user.role != UserRole.STAFF:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only staff can see requests assigned to them"
+        )
 
-    requests = db.query(RequestService).filter(
-        RequestService.assigned_staff_id == staff_id
-    ).all()
+        
 
-    return requests
+    requests = (
+        db.query(RequestService)
+        .filter(
+            RequestService.assigned_staff_id == current_user.id
+        )
+        .all()
+    )
+
+    return [
+    {
+        "id": request.id,
+        "service_id": request.service_id,
+        "service_name": request.service.name,
+
+        "customer_id": request.customer_id,
+        "customer_name": request.customer.name,
+
+        "assigned_staff_id": request.assigned_staff_id,
+        "staff_name": (
+            request.assigned_staff.name
+            if request.assigned_staff
+            else None
+        ),
+
+        "note": request.note,
+        "status": request.status,
+        "requested_at": request.requested_at,
+        "approved_at": request.approved_at,
+        "completed_at": request.completed_at,
+    }
+    for request in requests
+]
 
 
 def start_request_service(
