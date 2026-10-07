@@ -110,7 +110,7 @@ export default function AppRouter() {
             path="tours"
             element={
               <RoleRoute allowedRoles={["customer"]}>
-                <div>Tours</div>
+                <ToursManagement />
               </RoleRoute>
             }
           />

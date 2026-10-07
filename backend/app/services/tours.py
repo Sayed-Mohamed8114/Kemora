@@ -71,7 +71,6 @@ def get_tour_by_id_service(db: Session , tour_id:int):
     ).first()
     return tour 
 
-    
 def update_tour_service(
     db: Session,
     data: UpdateTourRequest,

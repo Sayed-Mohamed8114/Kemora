@@ -120,11 +120,13 @@ export default function ToursManagement() {
               sm:text-3xl
             "
           >
-            Tours Management
+           {canManageTours? "Tours Management" : "Kemora available tours"} 
           </h1>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Add and update Kemora tours.
+                       {canManageTours? "Add and update Kemora tours." : "Discover Egypt with kemora"} 
+
+            
           </p>
         </div>
 

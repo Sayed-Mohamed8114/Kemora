@@ -35,9 +35,7 @@ export default function Explore() {
                     </div>
                   </div>
 
-                  <span className="text-2xl text-gold-dark dark:text-gold-light opacity-40 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
-                    →
-                  </span>
+                  
                 </div>
               </button>
 
@@ -59,9 +57,7 @@ export default function Explore() {
                     </div>
                   </div>
 
-                  <span className="text-2xl text-gold-dark dark:text-gold-light opacity-40 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
-                    →
-                  </span>
+                  
                 </div>
               </button>
 
@@ -83,9 +79,7 @@ export default function Explore() {
                     </div>
                   </div>
 
-                  <span className="text-2xl text-gold-dark dark:text-gold-light opacity-40 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
-                    →
-                  </span>
+                  
                 </div>
               </button>
 
@@ -107,9 +101,7 @@ export default function Explore() {
                     </div>
                   </div>
 
-                  <span className="text-2xl text-gold-dark dark:text-gold-light opacity-40 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
-                    →
-                  </span>
+                  
                 </div>
               </button>
             </div>

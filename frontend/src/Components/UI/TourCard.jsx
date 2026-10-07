@@ -1,10 +1,24 @@
 import { useAuth } from "@/Context/AuthContext";
 import { Clock3, MapPin, Pencil, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function TourCard({ tour, onDelete, onEdit }) {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
-const canSeeCreator = user?.role === "staff" || user?.role === "super_admin";
+  const canManage = user?.role === "staff" || user?.role === "super_admin";
+
+  const handleSeeSchedules = () => {
+    if (!user) {
+      toast.error(
+        "please login or signup first to see the schedules and book ",
+      );
+      navigate("/login");
+      return;
+    }
+    navigate(`/tours/${tour.id}/schedules`);
+  };
 
   const getStatusStyle = () => {
     switch (tour.status) {
@@ -109,7 +123,7 @@ const canSeeCreator = user?.role === "staff" || user?.role === "super_admin";
           {tour.description}
         </p>
 
-        {canSeeCreator && (
+        {canManage && (
           <div className="flex items-center justify-between px-4 mt-5">
             <span
               className="
@@ -219,6 +233,17 @@ const canSeeCreator = user?.role === "staff" || user?.role === "super_admin";
                 Delete
               </button>
             )}
+          </div>
+        )}
+
+        {!canManage && (
+          <div className="flex items-center justify-center">
+            <button
+              onClick={handleSeeSchedules}
+              className="font-sans duration-700 transition-all underline-offset-2 hover:underline text-gold-dark dark:text-gold-light font-extrabold animate-bounce"
+            >
+              See schedules and book now
+            </button>
           </div>
         )}
       </div>

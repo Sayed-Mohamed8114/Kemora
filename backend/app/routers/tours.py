@@ -131,6 +131,7 @@ async def upload_tour_cover(
     tour = await upload_tour_cover_service(db=db,current_user=current_user , file=file , tour_id=tour_id)
     return tour
 
+
 @router.delete("/{tour_id}" , status_code=status.HTTP_204_NO_CONTENT)
 def delete_tour(
     tour_id:int,
