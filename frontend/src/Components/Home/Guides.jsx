@@ -1,35 +1,5 @@
-import { pyramids, market, mosque, aswan } from "@/assets/egyImages";
-
-const guides = [
-  {
-    image: pyramids,
-    number: "01",
-    title: "Ancient Egypt",
-    description:
-      "Discover the stories, monuments, and mysteries behind one of the world's oldest civilizations.",
-  },
-  {
-    image: market,
-    number: "02",
-    title: "Culture & Customs",
-    description:
-      "Learn about Egyptian traditions, local etiquette, and everyday life before you arrive.",
-  },
-  {
-    image: mosque,
-    number: "03",
-    title: "Travel Tips",
-    description:
-      "Useful tips about transportation, money, language, what to pack, and getting around Egypt.",
-  },
-  {
-    image: aswan,
-    number: "04",
-    title: "City Guides",
-    description:
-      "Explore Cairo, Luxor, Aswan, Alexandria, and more with guides built for curious travelers.",
-  },
-];
+import { Link } from "react-router-dom";
+import { GuidesData } from "@/Constants/guides";
 
 export default function Guides() {
   return (
@@ -52,9 +22,9 @@ export default function Guides() {
 
       {/* Guides Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
-        {guides.map((guide) => (
+        {GuidesData.map((guide) => (
           <article
-            key={guide.number}
+            key={guide.slug}
             className="
               group relative
               h-105
@@ -88,9 +58,6 @@ export default function Guides() {
                 to-transparent
               "
             />
-
-            {/* Number */}
-          
 
             {/* Content */}
             <div
@@ -127,7 +94,9 @@ export default function Guides() {
                 {guide.description}
               </p>
 
-              <button
+              {/* Guide Link */}
+              <Link
+                to={`/guides/${guide.slug}`}
                 className="
                   inline-flex
                   items-center
@@ -136,14 +105,19 @@ export default function Guides() {
                   text-sm
                   font-semibold
                   text-gold-light
-                  group-hover:gap-5
                   transition-all
                   duration-500
+                  group-hover:gap-5
+                  relative
+                  z-10
                 "
               >
-                Read Guide
-                <span className="text-lg">→</span>
-              </button>
+                <span>See Guide</span>
+
+                <span className="text-lg flex items-center justify-center">
+                  →
+                </span>
+              </Link>
             </div>
           </article>
         ))}

@@ -15,6 +15,7 @@ import ErrorPage from "@/Pages/404ErrorPage/404Page";
 import UpdateProfilePage from "@/Pages/Settings/UpdateProfilePage";
 import ServicesManagementPage from "@/Pages/ServicesManagementPage/ServicesManagementPage";
 import RequestServicePage from "@/Pages/RequestServicePage/RequestServicePage";
+import GuideDetails from "@/Pages/GuideDetails/GuideDetails";
 
 export default function AppRouter() {
   return (
@@ -25,6 +26,7 @@ export default function AppRouter() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUP />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="/guides/:slug" element={<GuideDetails />} />
       </Route>
 
       {/* Authenticated users */}
@@ -104,7 +106,7 @@ export default function AppRouter() {
               </RoleRoute>
             }
           />
-           <Route
+          <Route
             path="staff/requests"
             element={
               <RoleRoute allowedRoles={["staff"]}>
@@ -112,7 +114,6 @@ export default function AppRouter() {
               </RoleRoute>
             }
           />
-
 
           {/* Customer */}
           <Route
