@@ -1,11 +1,5 @@
-import {
-  CalendarDays,
-  User,
-  Tag,
-  UserRoundCheck,
-  Clock,
-  Eye,
-} from "lucide-react";
+import { useAuth } from "@/Context/AuthContext";
+import { CalendarDays, User, Tag, UserRoundCheck, Clock } from "lucide-react";
 
 export default function RequestCard({ request, onApprove, onReject }) {
   const getStatusStyle = (status) => {
@@ -32,6 +26,9 @@ export default function RequestCard({ request, onApprove, onReject }) {
         return "bg-slate-500/10 text-slate-600 dark:text-slate-400";
     }
   };
+  const { user } = useAuth();
+  const role = user?.role;
+  const isAdmin = role === "super_admin";
 
   const formatStatus = (status) => {
     if (!status) return "Unknown";
@@ -300,11 +297,12 @@ export default function RequestCard({ request, onApprove, onReject }) {
           </div>
         </div>
 
-        <div className="mt-8 flex w-full items-center justify-center gap-3 px-4">
-          <button
-            type="button"
-            onClick={() => onApprove(request.id)}
-            className="
+        {isAdmin && (
+          <div className="mt-8 flex w-full items-center justify-center gap-3 px-4">
+            <button
+              type="button"
+              onClick={() => onApprove(request.id)}
+              className="
       flex w-1/2
       items-center justify-center gap-2
       rounded-md
@@ -318,14 +316,14 @@ export default function RequestCard({ request, onApprove, onReject }) {
       hover:bg-green-700
       cursor-pointer
     "
-          >
-            Approve
-          </button>
+            >
+              Approve
+            </button>
 
-          <button
-            type="button"
-            onClick={() => onReject(request.id)}
-            className="
+            <button
+              type="button"
+              onClick={() => onReject(request.id)}
+              className="
       flex w-1/2
       items-center justify-center gap-2
       rounded-md
@@ -339,10 +337,11 @@ export default function RequestCard({ request, onApprove, onReject }) {
       hover:bg-red-700
       cursor-pointer
     "
-          >
-            Reject
-          </button>
-        </div>
+            >
+              Reject
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );

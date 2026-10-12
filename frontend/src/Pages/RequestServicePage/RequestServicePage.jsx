@@ -1,5 +1,6 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
 import RequestCard from "@/Components/UI/RequestCard";
+import ServiceCard from "@/Components/UI/ServiceCard";
 import { useAuth } from "@/Context/AuthContext";
 import {
   approveRequest,
@@ -48,13 +49,18 @@ export default function RequestServicePage() {
 
   const handleGetAllServicesForCustomer = async () => {
     setLoading(true);
+
     try {
       const data = await getAllServices();
+
+      console.log("Customer services:", data);
+      console.log("Is array:", Array.isArray(data));
+
       setRequests(data);
     } catch (error) {
-      const message =
-        error?.response?.data?.detail || "failed to load requests";
-      toast.error(message);
+      console.error("Failed to load services:", error);
+
+      toast.error(error?.response?.data?.detail || "Failed to load services");
     } finally {
       setLoading(false);
     }
@@ -100,6 +106,9 @@ export default function RequestServicePage() {
   };
 
   useEffect(() => {
+    console.log("User:", user);
+    console.log("Role:", user?.role);
+    console.log("Is customer:", user?.role === "customer");
     if (!user) {
       return;
     }
@@ -110,7 +119,7 @@ export default function RequestServicePage() {
     } else if (customer) {
       handleGetAllServicesForCustomer();
     }
-  }, []);
+  }, [user, admin, staff, customer]);
 
   return (
     <main
@@ -179,14 +188,18 @@ export default function RequestServicePage() {
               xl:grid-cols-3
             "
           >
-            {requests.map((request) => (
-              <RequestCard
-                key={request.id}
-                request={request}
-                onApprove={handleApproveRequest}
-                onReject={handleRejectRequest}
-              />
-            ))}
+            {requests.map((request) =>
+              customer ? (
+                <ServiceCard key={request.id} service={request} />
+              ) : (
+                <RequestCard
+                  key={request.id}
+                  request={request}
+                  onApprove={handleApproveRequest}
+                  onReject={handleRejectRequest}
+                />
+              ),
+            )}
           </div>
         )}
       </div>

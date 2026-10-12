@@ -68,9 +68,6 @@ export default function Destinations() {
               Where history stands tall.
             </p>
 
-            <button className="mt-6 text-gold-light font-manrope text-sm font-semibold">
-              Explore Giza →
-            </button>
           </div>
         </article>
 
@@ -121,10 +118,6 @@ export default function Destinations() {
               Where ancient history, busy streets, local markets, and modern
               Egyptian life come together.
             </p>
-
-            <button className="mt-5 text-left text-gold-light font-manrope text-sm font-semibold">
-              Explore Cairo →
-            </button>
           </div>
         </article>
       </div>

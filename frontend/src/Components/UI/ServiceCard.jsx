@@ -1,10 +1,20 @@
+import { useAuth } from "@/Context/AuthContext";
 import { CalendarDays, Pencil, Trash2, Tag } from "lucide-react";
 
-export default function ServiceCard({ service, onDelete, onEdit }) {
+export default function ServiceCard({ service, onDelete, onEdit, onRequest }) {
+  const { user } = useAuth();
+  const role = user?.role;
+  const isCustomer = role === "customer";
+
+  const handleRequestService = async () => {
+
+  }
+
   return (
     <article
       className="
-        group relative w-auto md:w-[60vh] lg:w-[45vh] xl:w-[60vh]
+        group relative flex h-full min-h-60 flex-col
+        w-full md:w-[60vh] lg:w-[45vh] xl:w-[60vh]
         overflow-hidden rounded-2xl
         border border-slate-200/80 bg-white
         p-5 shadow-sm
@@ -13,6 +23,7 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
         dark:border-white/10 dark:bg-[#171717]
       "
     >
+      {/* Background Decoration */}
       <div
         className="
           pointer-events-none absolute -right-12 -top-12
@@ -23,16 +34,16 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
         "
       />
 
-      <div className="relative">
+      {/* Card Content */}
+      <div className="relative flex flex-1 flex-col">
+        {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <div
               className="
                 flex h-12 w-12 shrink-0 items-center justify-center
-                rounded-xl
-                border border-[#C9A227]/30
-                bg-[#C9A227]/10
-                text-[#C9A227]
+                rounded-xl border border-[#C9A227]/30
+                bg-[#C9A227]/10 text-[#C9A227]
               "
             >
               <Tag size={22} strokeWidth={1.8} />
@@ -42,8 +53,7 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
               <h3
                 className="
                   truncate text-base font-semibold
-                  text-slate-900
-                  dark:text-white
+                  text-slate-900 dark:text-white
                 "
                 title={service.name}
               >
@@ -74,14 +84,13 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
               }
             `}
           >
-            
-
             {service.is_active ? "Active" : "Inactive"}
           </span>
         </div>
 
         <div className="my-5 h-px bg-slate-200 dark:bg-white/10" />
 
+        {/* Description */}
         <div>
           <p
             className="
@@ -96,8 +105,7 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
             className="
               mt-2 line-clamp-3
               text-sm leading-6
-              text-slate-600
-              dark:text-slate-300
+              text-slate-600 dark:text-slate-300
             "
             title={service.description}
           >
@@ -105,13 +113,12 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
           </p>
         </div>
 
+        {/* Price and Creation Date */}
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div
             className="
-              rounded-xl border
-              border-[#C9A227]/20
-              bg-[#C9A227]/5
-              p-3
+              rounded-xl border border-[#C9A227]/20
+              bg-[#C9A227]/5 p-3
             "
           >
             <p
@@ -126,8 +133,7 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
             <p
               className="
                 mt-1 text-lg font-bold
-                text-[#A88318]
-                dark:text-[#D8B94A]
+                text-[#A88318] dark:text-[#D8B94A]
               "
             >
               ${service.price}
@@ -136,12 +142,9 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
 
           <div
             className="
-              rounded-xl
-              border border-slate-200
-              bg-slate-50
-              p-3
-              dark:border-white/10
-              dark:bg-white/5
+              rounded-xl border border-slate-200
+              bg-slate-50 p-3
+              dark:border-white/10 dark:bg-white/5
             "
           >
             <p
@@ -154,77 +157,78 @@ export default function ServiceCard({ service, onDelete, onEdit }) {
             </p>
 
             <div className="mt-1 flex items-center gap-1.5">
-              <CalendarDays
-                size={14}
-                className="text-slate-400"
-              />
+              <CalendarDays size={14} className="text-slate-400" />
 
               <p
                 className="
                   text-xs font-medium
-                  text-slate-600
-                  dark:text-slate-300
+                  text-slate-600 dark:text-slate-300
                 "
               >
-                {new Date(service.created_at).toLocaleDateString()}
+                {service.created_at
+                  ? new Date(service.created_at).toLocaleDateString()
+                  : "N/A"}
               </p>
             </div>
           </div>
         </div>
 
-        <div
-          className="
-            mt-8 flex w-full
-            items-center justify-center
-            gap-4 px-4
-          "
-        >
-          <button
-            type="button"
-            onClick={() => onEdit(service)}
-            className="
-              flex w-[40%]
-              items-center justify-center gap-2
-              rounded-md
-              bg-gold-dark
-              px-4 py-2
-              text-sm md:text-base
-              font-semibold
-              text-light-border
-              transition-colors
-              duration-500
-              hover:text-white
-              dark:hover:bg-gold-light
-              dark:hover:text-slate-900
-              cursor-pointer
-            "
-          >
-            <Pencil size={16} />
-            Edit
-          </button>
+        {/* Bottom Actions */}
+        <div className="mt-auto pt-8">
+          {isCustomer ? (
+            <button
+              type="button"
+              onClick={() => onRequest?.(service)}
+              disabled={!service.is_active}
+              className="
+                flex w-full items-center justify-center gap-2
+                rounded-md bg-green-700 px-4 py-3
+                text-sm font-serif font-bold text-white
+                transition-colors duration-300
+                hover:bg-green-500
+                disabled:cursor-not-allowed
+                disabled:opacity-50
+              "
+            >
+              Request Service
+            </button>
+          ) : (
+            <div className="flex w-full items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => onEdit?.(service)}
+                className="
+                  flex w-1/2 items-center justify-center gap-2
+                  rounded-md bg-gold-dark px-4 py-2
+                  text-sm font-semibold text-light-border
+                  transition-colors duration-300
+                  hover:text-white
+                  dark:hover:bg-gold-light
+                  dark:hover:text-slate-900
+                  cursor-pointer
+                "
+              >
+                <Pencil size={16} />
+                Edit
+              </button>
 
-          <button
-            type="button"
-            onClick={() => onDelete(service.id)}
-            className="
-              flex w-[40%]
-              items-center justify-center gap-2
-              rounded-md
-              bg-red-700
-              px-4 py-2
-              text-sm md:text-base
-              font-serif font-bold
-              text-light-border
-              transition-colors
-              duration-500
-              hover:bg-red-500
-              hover:text-white
-              cursor-pointer
-            "
-          >
-            <Trash2 size={16} />
-            Delete
-          </button>
+              <button
+                type="button"
+                onClick={() => onDelete?.(service.id)}
+                className="
+                  flex w-1/2 items-center justify-center gap-2
+                  rounded-md bg-red-700 px-4 py-2
+                  text-sm font-bold text-light-border
+                  transition-colors duration-300
+                  hover:bg-red-500 hover:text-white
+                  cursor-pointer
+                "
+              >
+                <Trash2 size={16} />
+                Delete
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </article>
