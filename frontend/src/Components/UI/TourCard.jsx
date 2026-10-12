@@ -237,10 +237,10 @@ export default function TourCard({ tour, onDelete, onEdit }) {
         )}
 
         {!canManage && (
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-5">
             <button
               onClick={handleSeeSchedules}
-              className="font-sans duration-700 transition-all underline-offset-2 hover:underline text-gold-dark dark:text-gold-light font-extrabold animate-bounce"
+              className="font-sans duration-700 transition-all cursor-pointer  underline-offset-2 hover:underline text-gold-dark dark:text-gold-light font-extrabold animate-bounce"
             >
               See schedules and book now
             </button>
