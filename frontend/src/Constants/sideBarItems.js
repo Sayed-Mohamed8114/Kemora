@@ -55,7 +55,7 @@ export const staffSidebarItems = [
   },
 
   {
-    label: "services Requests",
+    label: "Assigned services",
     path: "/staff/requests",
     icon: RiServiceFill,
   },

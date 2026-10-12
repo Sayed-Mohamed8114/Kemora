@@ -1,23 +1,74 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
 import RequestCard from "@/Components/UI/RequestCard";
+import { useAuth } from "@/Context/AuthContext";
 import {
   approveRequest,
   getAllRequests,
+  myAssignedRequests,
   rejectRequest,
 } from "@/Services/requestServices";
+import { getAllServices } from "@/Services/Services";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function RequestServicePage() {
   const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState([]);
-  const handleGetallRequests = async () => {
+  const { user } = useAuth();
+
+  const admin = user?.role === "super_admin";
+  const staff = user?.role === "staff";
+  const customer = user?.role === "customer";
+
+  const welcomeMessage = [
+    "Manage request services by approving or rejecting the request then let the staff work on it.",
+    "Manage and track the services requests by customers that the admin assigned to you",
+    "Request service and see its progress for better experience",
+  ];
+
+  const noServiceYet = [
+    "No Services yet start adding some services.",
+    "There is no assigned requests for you yet.",
+    "There is no services in this time we are sorry",
+  ];
+
+  const handleGetallRequestsForAdmin = async () => {
     setLoading(true);
     try {
       const data = await getAllRequests();
       setRequests(data);
-    } catch {
-      toast.error("something went wrong , failed to load the requests");
+    } catch (error) {
+      const message =
+        error?.response?.data?.detail || "failed to load requests";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGetAllServicesForCustomer = async () => {
+    setLoading(true);
+    try {
+      const data = await getAllServices();
+      setRequests(data);
+    } catch (error) {
+      const message =
+        error?.response?.data?.detail || "failed to load requests";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGetRequestsAssignedToStaff = async () => {
+    setLoading(true);
+    try {
+      const data = await myAssignedRequests();
+      setRequests(data);
+    } catch (error) {
+      const message =
+        error?.response?.data?.detail || "failed to load requests";
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -49,8 +100,18 @@ export default function RequestServicePage() {
   };
 
   useEffect(() => {
-    handleGetallRequests();
+    if (!user) {
+      return;
+    }
+    if (admin) {
+      handleGetallRequestsForAdmin();
+    } else if (staff) {
+      handleGetRequestsAssignedToStaff();
+    } else if (customer) {
+      handleGetAllServicesForCustomer();
+    }
   }, []);
+
   return (
     <main
       className="
@@ -74,12 +135,15 @@ export default function RequestServicePage() {
               sm:text-3xl
             "
           >
-            Request services management
+            {admin && "Request services management"}
+            {customer && "request service page"}
+            {staff && "assigned Request services management"}
           </h1>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Manage request services by approving or rejecting the request then
-            let the staff work on it .
+            {admin && welcomeMessage[0]}
+            {customer && welcomeMessage[2]}
+            {staff && welcomeMessage[1]}
           </p>
         </div>
 
@@ -99,7 +163,9 @@ export default function RequestServicePage() {
             "
           >
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              No Services yet start adding some services.
+              {admin && noServiceYet[0]}
+              {customer && noServiceYet[2]}
+              {staff && noServiceYet[1]}
             </p>
           </div>
         ) : (
