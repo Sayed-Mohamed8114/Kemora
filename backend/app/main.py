@@ -13,6 +13,7 @@ from app.routers.contact import router as contact_router
 from app.routers.request_services import router as request_service_router
 from app.routers.tours import router as tours_router
 from app.routers.tour_schedules import router as tours_schedules_router
+from app.routers.admin_dashboard import router as admin_dashboard_router
 
 app = FastAPI()
 
@@ -84,3 +85,4 @@ app.include_router(services_router)
 app.include_router(request_service_router)
 app.include_router(tours_router)
 app.include_router(tours_schedules_router)
+app.include_router(admin_dashboard_router)
