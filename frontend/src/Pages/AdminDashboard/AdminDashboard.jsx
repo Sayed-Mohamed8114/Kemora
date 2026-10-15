@@ -1,4 +1,6 @@
 import SmallLoader from "@/Components/Common/SmallLoader";
+import ServiceStatisticsCard from "@/Components/UI/ServiceStatisticsCard";
+import UserStatisticsCard from "@/Components/UI/UserStatisticsCard";
 import { servicesStatistics, usersStatistics } from "@/Services/adminDashboard";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -38,7 +40,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     getUsersStatistics();
-    setServicesData();
+    getServicesStatistics();
   }, []);
   return (
     <main
@@ -74,14 +76,14 @@ export default function AdminDashboard() {
         ) : (
           <div
             className="
-              grid
-              grid-cols-1
-              gap-5
-              lg:gap-5
-              lg:grid-cols-2
-              xl:grid-cols-3
+              flex items-center justify-evenly p-5 flex-col w-full
             "
-          ></div>
+          >
+            <div className="flex items-center flex-col xl:flex-row justify-between gap-10 ">
+              <UserStatisticsCard userService={usersData} />
+              <ServiceStatisticsCard serviceService={servicesData} />
+            </div>
+          </div>
         )}
       </div>
     </main>
