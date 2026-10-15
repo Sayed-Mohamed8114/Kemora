@@ -7,8 +7,6 @@ from app.models.request_service import RequestService , ServiceRequestStatus
 from app.models.tour_schedule import TourSchedule 
 from app.models.booking import Booking , BookingStatus
 
-
-
 from sqlalchemy.orm import Session 
 from sqlalchemy import func , case
 
@@ -76,6 +74,7 @@ def service_statistics_service(current_user:User ,db: Session):
             status_code=status.HTTP_403_FORBIDDEN,
             detail = "This access require only the admin"
         )
+    
     total_services = db.query(func.count(Service.id)).scalar() or 0 
 
     active_services = db.query(
@@ -141,9 +140,18 @@ def service_statistics_service(current_user:User ,db: Session):
         "most_requested_service": most_requested_service,
     }
 
-
 def staff_leaderboard_service( current_user: User , db:Session ):
-    pass 
+    if current_user is None :
+        raise HTTPException(
+            status_code= status.HTTP_401_UNAUTHORIZED,
+            detail="Please login first"
+        )
+        
+    if current_user.role is not UserRole.SUPER_ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail = "This access require only the admin"
+        ) 
 
 def customer_leaderboard():
     pass 
