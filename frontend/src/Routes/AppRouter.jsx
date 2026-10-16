@@ -16,6 +16,8 @@ import UpdateProfilePage from "@/Pages/Settings/UpdateProfilePage";
 import ServicesManagementPage from "@/Pages/ServicesManagementPage/ServicesManagementPage";
 import RequestServicePage from "@/Pages/RequestServicePage/RequestServicePage";
 import GuideDetails from "@/Pages/GuideDetails/GuideDetails";
+import SchedulesPage from "@/Pages/SchedulesPage/SchedulesPage";
+import CustomerSchedulePage from "@/Pages/CustomerSchedulePage/CustomerSchedulePage";
 
 export default function AppRouter() {
   return (
@@ -34,6 +36,15 @@ export default function AppRouter() {
         <Route element={<Dashboard />}>
           <Route path="/profile" element={<UpdateProfilePage />} />
 
+          <Route
+            path={`dashboard/tours/:tourId/schedules`}
+            element={
+              <RoleRoute allowedRoles={["super_admin", "staff"]}>
+                <SchedulesPage />
+              </RoleRoute>
+            }
+          />
+
           {/* Admin */}
           <Route
             path="dashboard/admin"
@@ -43,6 +54,7 @@ export default function AppRouter() {
               </RoleRoute>
             }
           />
+
           <Route
             path="dashboard/services"
             element={
@@ -121,6 +133,15 @@ export default function AppRouter() {
             element={
               <RoleRoute allowedRoles={["customer"]}>
                 <ToursManagement />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path={"tours/:tourId/schedules"}
+            element={
+              <RoleRoute allowedRoles={["customer"]}>
+                <CustomerSchedulePage />
               </RoleRoute>
             }
           />

@@ -1,7 +1,13 @@
 import { useAuth } from "@/Context/AuthContext";
-import { Clock3, MapPin, Pencil, Trash2 } from "lucide-react";
+import { Clock3, MapPin, Pencil, Trash2, ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/Components/Common/tooltip";
 
 export default function TourCard({ tour, onDelete, onEdit }) {
   const { user } = useAuth();
@@ -17,7 +23,11 @@ export default function TourCard({ tour, onDelete, onEdit }) {
       navigate("/login");
       return;
     }
-    navigate(`/tours/${tour.id}/schedules`);
+    if (canManage) {
+      navigate(`/dashboard/tours/${tour.id}/schedules`);
+    } else {
+      navigate(`/tours/${tour.id}/schedules`);
+    }
   };
 
   const getStatusStyle = () => {
@@ -85,17 +95,34 @@ export default function TourCard({ tour, onDelete, onEdit }) {
 
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
-          <h2
-            className="
+          <div className="flex px-2 justify-between">
+            <h2
+              className="
               line-clamp-1
               font-cinzel
               text-xl font-bold
               text-dark-border
               dark:text-light-border
             "
-          >
-            {tour.title}
-          </h2>
+            >
+              {tour.title}
+            </h2>
+            {canManage && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button className="px-2 py-2 text-gold-dark hover:text-black dark:hover:text-white cursor-pointer hover:scale-105 duration-700 transition-colors ">
+                      <ArrowUpRight onClick={handleSeeSchedules} />
+                    </button>
+                  </TooltipTrigger>
+
+                  <TooltipContent>
+                    <p className="text-[15px]">see and edit tour schedules</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
 
           <div
             className="
@@ -103,7 +130,7 @@ export default function TourCard({ tour, onDelete, onEdit }) {
               flex items-center gap-1
               text-sm
               text-gold-dark
-              dark:text-gold-light
+              dark:text-gold-light px-2
             "
           >
             <MapPin size={14} />

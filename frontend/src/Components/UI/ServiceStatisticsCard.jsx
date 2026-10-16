@@ -265,7 +265,7 @@ export default function ServiceStatisticsCard({ serviceService }) {
 
         {mostRequested ? (
           <>
-            <h3 className="mt-3 break-words font-cinzel text-lg font-bold text-slate-900 dark:text-white">
+            <h3 className="mt-3 wrap-break-word font-cinzel text-lg font-bold text-slate-900 dark:text-white">
               {mostRequested.name}
             </h3>
 
